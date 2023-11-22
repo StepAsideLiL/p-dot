@@ -1,3 +1,4 @@
+import { dmSerifDisplay } from "@/lib/fonts";
 import { ChildrenClassname, Classname } from "@/lib/types";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
@@ -20,4 +21,20 @@ export const LogoLink = ({ className }: Classname) => {
 
 export const Main = ({ children, className = "" }: ChildrenClassname) => {
   return <main className={cn("flex-1 py-4", className)}>{children}</main>;
+};
+
+export const PageBanner = ({ children, className = "" }: ChildrenClassname) => {
+  return (
+    <section className="p-10">
+      <h1
+        className={cn(
+          dmSerifDisplay.className,
+          "text-5xl font-semibold",
+          className
+        )}
+      >
+        {children}
+      </h1>
+    </section>
+  );
 };

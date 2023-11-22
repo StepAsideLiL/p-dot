@@ -1,44 +1,16 @@
-import { Main } from "@/components/custom-ui";
+import { Main, PageBanner } from "@/components/custom-ui";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { dmSerifDisplay } from "@/lib/fonts";
+import { arr20, fields } from "@/lib/placeholder-data";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 import Link from "next/link";
 
-const fields = [
-  {
-    title: "Front-end",
-    slug: "front-end",
-  },
-  {
-    title: "Back-end",
-    slug: "back-end",
-  },
-  {
-    title: "Full-stack",
-    slug: "full-stack",
-  },
-  {
-    title: "Android",
-    slug: "android",
-  },
-  {
-    title: "Apple",
-    slug: "apple",
-  },
-];
-
-const profiles = Array.from({ length: 20 }, (_, index) => index + 1);
-
 const TalentsPage = () => {
   return (
     <Main className="container">
-      <section className="p-10">
-        <h1 className={cn(dmSerifDisplay.className, "text-5xl font-semibold")}>
-          Find Talents
-        </h1>
-      </section>
+      <PageBanner>Find Talents</PageBanner>
 
       <section className="flex justify-center">
         <ul className="flex gap-1.5">
@@ -52,7 +24,7 @@ const TalentsPage = () => {
       </section>
 
       <section className="grid grid-cols-3 gap-2 max-w-5xl mx-auto pt-5">
-        {profiles.map((profile) => (
+        {arr20.map((profile) => (
           <ProfileCard key={profile} />
         ))}
       </section>
