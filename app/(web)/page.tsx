@@ -1,14 +1,18 @@
 import { Main } from "@/components/custom-ui";
 import { Button } from "@/components/ui/button";
+import { dmSerifDisplay } from "@/lib/fonts";
+import { cn } from "@/lib/utils";
 import Image from "next/image";
 import Link from "next/link";
 
 const HomePage = () => {
   return (
-    <Main className="container mx-auto py-4 space-y-32">
+    <Main className="container mx-auto space-y-32">
       <section className="flex items-center">
         <div className="w-full space-y-3">
-          <h1 className="text-3xl font-semibold">
+          <h1
+            className={cn(dmSerifDisplay.className, "text-5xl font-semibold")}
+          >
             Find The Best Talents For Your Company
           </h1>
 
@@ -32,7 +36,9 @@ const HomePage = () => {
       </section>
 
       <section className="flex justify-center flex-col text-center space-y-3">
-        <h1 className="text-2xl font-semibold">Have Talent?</h1>
+        <h1 className={cn(dmSerifDisplay.className, "text-2xl font-semibold")}>
+          You Have Paticular Talent?
+        </h1>
 
         <div>
           <Button asChild>

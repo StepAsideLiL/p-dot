@@ -19,5 +19,5 @@ export const LogoLink = ({ className }: Classname) => {
 };
 
 export const Main = ({ children, className = "" }: ChildrenClassname) => {
-  return <main className={cn("max-h-screen", className)}>{children}</main>;
+  return <main className={cn("flex-1 py-4", className)}>{children}</main>;
 };
