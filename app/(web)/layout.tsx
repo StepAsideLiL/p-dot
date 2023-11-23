@@ -1,4 +1,4 @@
-import MainFooter from "@/components/templates/footer";
+import Footer from "@/components/templates/footer";
 import Navbar from "@/components/templates/nav-bar";
 import { Children } from "@/lib/types";
 import React from "react";
@@ -10,7 +10,7 @@ const WebLayout = ({ children }: Children) => {
 
       {children}
 
-      <MainFooter />
+      <Footer />
     </div>
   );
 };

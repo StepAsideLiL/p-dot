@@ -3,7 +3,7 @@ import Link from "next/link";
 const date = new Date();
 const year = date.getFullYear();
 
-const MainFooter = () => {
+const Footer = () => {
   return (
     <footer>
       <div className="flex items-center justify-center px-6 py-6 text-sm">
@@ -22,4 +22,4 @@ const MainFooter = () => {
   );
 };
 
-export default MainFooter;
+export default Footer;

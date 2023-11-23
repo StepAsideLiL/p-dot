@@ -45,7 +45,7 @@ const ProfileCard = () => {
           alt={`User Profile Picture`}
           width={512}
           height={512}
-          className="w-28"
+          className="w-28 rounded-full"
         />
 
         <h1 className={cn(dmSerifDisplay.className, "text-2xl")}>Rifat Khan</h1>
