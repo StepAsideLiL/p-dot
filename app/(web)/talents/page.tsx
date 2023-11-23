@@ -1,4 +1,4 @@
-import { Main, PageBanner } from "@/components/custom-ui";
+import { Main, PageBanner } from "@/components/web-uis";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { dmSerifDisplay } from "@/lib/fonts";

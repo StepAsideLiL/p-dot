@@ -1,8 +1,9 @@
 import React from "react";
-import { LogoLink } from "../custom-ui";
+import { IsUserSignedIn, LogoLink } from "../web-uis";
 import NavLinks from "./nav-links";
 import { Button } from "../ui/button";
 import Link from "next/link";
+import ProfileMenu from "./profile-menu";
 
 const Navbar = () => {
   return (
@@ -14,13 +15,21 @@ const Navbar = () => {
       </nav>
 
       <div className="flex gap-1">
-        <Button variant={"secondary"} asChild>
-          <Link href={"/auth/signin"}>Sign In</Link>
-        </Button>
+        <IsUserSignedIn
+          user={true}
+          signout={
+            <>
+              <Button variant={"secondary"} asChild>
+                <Link href={"/auth/signin"}>Sign In</Link>
+              </Button>
 
-        <Button asChild>
-          <Link href={"/auth/signup"}>Sign Up</Link>
-        </Button>
+              <Button asChild>
+                <Link href={"/auth/signup"}>Sign Up</Link>
+              </Button>
+            </>
+          }
+          signin={<ProfileMenu />}
+        />
       </div>
     </header>
   );

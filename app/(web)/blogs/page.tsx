@@ -1,4 +1,4 @@
-import { Main, PageBanner } from "@/components/custom-ui";
+import { Main, PageBanner } from "@/components/web-uis";
 import { dmSerifDisplay } from "@/lib/fonts";
 import { arr20 } from "@/lib/placeholder-data";
 import { cn } from "@/lib/utils";
@@ -7,7 +7,7 @@ import Image from "next/image";
 const PostsPage = () => {
   return (
     <Main className="container">
-      <PageBanner>User Post</PageBanner>
+      <PageBanner>User Blogs</PageBanner>
 
       <section className="space-y-4 max-w-4xl mx-auto p-5 border rounded-sm divide-y-2">
         {arr20.map((list) => (

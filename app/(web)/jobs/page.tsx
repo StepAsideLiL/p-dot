@@ -1,4 +1,4 @@
-import { Main, PageBanner } from "@/components/custom-ui";
+import { Main, PageBanner } from "@/components/web-uis";
 import { Button } from "@/components/ui/button";
 import { dmSerifDisplay } from "@/lib/fonts";
 import { arr20, fields } from "@/lib/placeholder-data";

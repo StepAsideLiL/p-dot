@@ -2,6 +2,7 @@ import { dmSerifDisplay } from "@/lib/fonts";
 import { ChildrenClassname, Classname } from "@/lib/types";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 export const Logo = () => {
   return (
@@ -36,5 +37,33 @@ export const PageBanner = ({ children, className = "" }: ChildrenClassname) => {
         {children}
       </h1>
     </section>
+  );
+};
+
+export const IsUserSignedIn = ({
+  user = false,
+  signin,
+  signout,
+}: {
+  user?: boolean;
+  signin: React.ReactNode;
+  signout: React.ReactNode;
+}) => {
+  if (user) {
+    return signin;
+  }
+
+  return signout;
+};
+
+export const UserAvatar = () => {
+  return (
+    <Avatar>
+      <AvatarImage
+        src={"/images/user-profile.png"}
+        alt={`User Profile Picture`}
+      />
+      <AvatarFallback>{`rifatkhan`}</AvatarFallback>
+    </Avatar>
   );
 };

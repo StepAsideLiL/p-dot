@@ -1,4 +1,4 @@
-import { Main } from "@/components/custom-ui";
+import { Main } from "@/components/web-uis";
 import { Button } from "@/components/ui/button";
 import { dmSerifDisplay } from "@/lib/fonts";
 import { cn } from "@/lib/utils";

@@ -18,8 +18,8 @@ const links = [
     href: "/companies",
   },
   {
-    name: "User Posts",
-    href: "/posts",
+    name: "Blogs",
+    href: "/blogs",
   },
 ];
 
