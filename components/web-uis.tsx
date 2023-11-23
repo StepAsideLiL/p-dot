@@ -67,3 +67,21 @@ export const UserAvatar = () => {
     </Avatar>
   );
 };
+
+export const ProfileSection = ({
+  children,
+  className = "",
+}: ChildrenClassname) => {
+  return (
+    <section className={cn("border p-3 rounded space-y-1", className)}>
+      {children}
+    </section>
+  );
+};
+
+export const ProfileSectionTitle = ({
+  children,
+  className = "",
+}: ChildrenClassname) => {
+  return <h1 className={cn("text-2xl", className)}>{children}</h1>;
+};
