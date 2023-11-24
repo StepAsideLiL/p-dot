@@ -1,30 +1,66 @@
+import AppliedJobContent from "@/components/profile-tabs/applied-job";
+import BlogsContent from "@/components/profile-tabs/blogs";
+import ProfileContent from "@/components/profile-tabs/profile";
+import ProjectsContent from "@/components/profile-tabs/projects";
 import { Badge } from "@/components/ui/badge";
-import {
-  Main,
-  ProfileSection,
-  ProfileSectionTitle,
-} from "@/components/web-uis";
+import { Button } from "@/components/ui/button";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Main } from "@/components/web-uis";
 import { dmSerifDisplay } from "@/lib/fonts";
-import { fields } from "@/lib/placeholder-data";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
-import React from "react";
+import Link from "next/link";
 
 const ProfilePage = ({
   params: { username },
+  searchParams: { tabs },
 }: {
   params: { username: string };
+  searchParams: { tabs: string };
 }) => {
+  const tabsList = [
+    {
+      title: "Profile",
+      value: "profile",
+      href: `/p/hello?tabs=profile`,
+      content: <ProfileContent />,
+    },
+    {
+      title: "Blogs",
+      value: "blogs",
+      href: "/p/hello?tabs=blogs",
+      content: <BlogsContent />,
+    },
+    {
+      title: "Projects",
+      value: "projects",
+      href: "/p/hello?tabs=projects",
+      content: <ProjectsContent />,
+    },
+    {
+      title: "Applied Jobs",
+      value: "applied-jobs",
+      href: "/p/hello?tabs=applied-jobs",
+      content: <AppliedJobContent />,
+    },
+  ];
+
+  const tabsParam = tabs ? tabs : tabsList[0].value;
+
   return (
     <Main className="max-w-3xl mx-auto space-y-3">
       <section className="flex gap-2 items-center">
-        <Image
-          src={"/images/user-profile.png"}
-          alt={`User Profile Picture`}
-          width={512}
-          height={512}
-          className="w-40 rounded-full"
-        />
+        <div className="flex flex-col items-center">
+          <Image
+            src={"/images/user-profile.png"}
+            alt={`User Profile Picture`}
+            width={512}
+            height={512}
+            className="w-40 rounded-full"
+          />
+
+          <Badge>hunting</Badge>
+        </div>
 
         <div>
           <h1
@@ -35,60 +71,30 @@ const ProfilePage = ({
 
           <p>{`Fullstack developer`}</p>
 
-          <Badge>hunting</Badge>
+          <div>
+            <Button variant={"outline"}>Edit Profile</Button>
+            <Button>Follow</Button>
+          </div>
         </div>
       </section>
 
-      <ProfileSection>
-        <ProfileSectionTitle>About</ProfileSectionTitle>
-
-        <p>
-          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Maxime
-          possimus officia, distinctio facere dolorum explicabo repudiandae
-          provident laboriosam omnis! Eum, doloremque cum impedit architecto ex
-          qui ut voluptatum quam reprehenderit nemo sed ea sapiente voluptatibus
-          non sequi facilis. Tempore, possimus.
-        </p>
-      </ProfileSection>
-
-      <ProfileSection>
-        <ProfileSectionTitle>Skills</ProfileSectionTitle>
-
-        <ul className="flex gap-2">
-          {fields.map((field) => (
-            <li
-              key={field.slug}
-              className="text-sm p-2 border border-1 rounded-3xl bg-zinc-200"
-            >
-              {field.title}
-            </li>
+      <Tabs defaultValue={tabsList[0].value} value={tabsParam}>
+        <TabsList className="grid w-full grid-cols-4">
+          {tabsList.map((tab) => (
+            <Link key={tab.value} href={tab.href} className="w-full block">
+              <TabsTrigger value={tab.value} className="w-full">
+                {tab.title}
+              </TabsTrigger>
+            </Link>
           ))}
-        </ul>
-      </ProfileSection>
+        </TabsList>
 
-      <ProfileSection>
-        <ProfileSectionTitle>Education</ProfileSectionTitle>
-
-        <ul className="space-y-1">
-          <li>
-            <h1 className="text-xl">JKKNIU</h1>
-            <p>B.Sc in EEE</p>
-            <p>Feb 2017 - May 2023</p>
-          </li>
-        </ul>
-      </ProfileSection>
-
-      <ProfileSection>
-        <ProfileSectionTitle>Courses and Certificates</ProfileSectionTitle>
-
-        <ul className="space-y-1">
-          <li>
-            <h1 className="text-xl">Programming Hero</h1>
-            <p>Complete Web Development With Jangkar Mahbub</p>
-            <p>Jan 2023 - Aug 2023</p>
-          </li>
-        </ul>
-      </ProfileSection>
+        {tabsList.map((tab) => (
+          <TabsContent key={tab.value} value={tab.value} className="space-y-2">
+            {tab.content}
+          </TabsContent>
+        ))}
+      </Tabs>
     </Main>
   );
 };

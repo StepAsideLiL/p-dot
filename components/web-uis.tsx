@@ -83,5 +83,7 @@ export const ProfileSectionTitle = ({
   children,
   className = "",
 }: ChildrenClassname) => {
-  return <h1 className={cn("text-2xl", className)}>{children}</h1>;
+  return (
+    <h1 className={cn("text-2xl font-semibold", className)}>{children}</h1>
+  );
 };
