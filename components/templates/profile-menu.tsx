@@ -7,10 +7,12 @@ import {
   SheetHeader,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import { UserAvatar } from "../web-uis";
+import { UserAvatar } from "@/components/web-uis";
 import Link from "next/link";
 import { useState } from "react";
-import { tabsList } from "@/components/menus";
+import { addContentsMenu, tabsList } from "@/components/menus";
+import { Separator } from "@/components/ui/separator";
+import { Button } from "@/components/ui/button";
 
 const ProfileMenu = () => {
   const [open, setOpen] = useState(false);
@@ -48,6 +50,31 @@ const ProfileMenu = () => {
                 </Link>
               </li>
             ))}
+
+            <Separator />
+
+            {addContentsMenu.map((list) => (
+              <li key={list.href}>
+                <Link
+                  href={list.href}
+                  className="p-1.5 pl-2.5 hover:bg-slate-200 rounded w-full flex gap-2"
+                  onClick={() => setOpen(false)}
+                >
+                  <span>{list.icon}</span> <span>{list.title}</span>
+                </Link>
+              </li>
+            ))}
+
+            <Separator />
+
+            <li>
+              <Button
+                className="p-1.5 pl-2.5 rounded w-full flex gap-2"
+                onClick={() => setOpen(false)}
+              >
+                Sign Out
+              </Button>
+            </li>
           </ul>
         </nav>
       </SheetContent>

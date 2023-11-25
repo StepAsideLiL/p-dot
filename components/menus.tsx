@@ -5,10 +5,14 @@ import ProfileTabContent from "@/components/profile-tabs/profile";
 import ProjectsTabContent from "@/components/profile-tabs/projects";
 import {
   Briefcase,
+  CalendarPlus,
   FlaskConical,
   ListChecks,
+  PackagePlus,
+  PenLine,
   ScrollText,
   User2,
+  UserCog2,
 } from "lucide-react";
 
 export const tabsList = [
@@ -46,5 +50,28 @@ export const tabsList = [
     href: "/p/hello?tabs=applied-jobs",
     icon: <ListChecks />,
     content: <AppliedJobTabContent />,
+  },
+];
+
+export const addContentsMenu = [
+  {
+    title: "Edit Profile",
+    href: "/p/hello/edit-profile",
+    icon: <UserCog2 />,
+  },
+  {
+    title: "New Blog",
+    href: "/p/hello/new-blog",
+    icon: <PenLine />,
+  },
+  {
+    title: "New Project",
+    href: "/p/hello/new-project",
+    icon: <PackagePlus />,
+  },
+  {
+    title: "New Job",
+    href: "/p/hello/new-job",
+    icon: <CalendarPlus />,
   },
 ];
