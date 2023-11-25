@@ -4,12 +4,12 @@ import Image from "next/image";
 import { cn } from "@/lib/utils";
 import { dmSerifDisplay } from "@/lib/fonts";
 
-const BlogsContent = () => {
+const BlogsTabContent = () => {
   return (
     <ProfileSection>
       <ProfileSectionTitle>Blogs</ProfileSectionTitle>
 
-      <section className="space-y-4 divide-y-2">
+      <section className="space-y-4">
         {arr20.map((list) => (
           <BlogCard key={list} />
         ))}
@@ -20,7 +20,7 @@ const BlogsContent = () => {
 
 const BlogCard = () => {
   return (
-    <article className="p-2 space-y-2">
+    <article className="p-4 border border-slate-300 rounded space-y-2">
       <header>
         <h1
           className={cn(dmSerifDisplay.className, "text-4xl py-2")}
@@ -58,4 +58,4 @@ const BlogCard = () => {
   );
 };
 
-export default BlogsContent;
+export default BlogsTabContent;

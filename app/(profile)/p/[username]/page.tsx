@@ -1,7 +1,7 @@
-import AppliedJobContent from "@/components/profile-tabs/applied-job";
-import BlogsContent from "@/components/profile-tabs/blogs";
-import ProfileContent from "@/components/profile-tabs/profile";
-import ProjectsContent from "@/components/profile-tabs/projects";
+import AppliedJobTabContent from "@/components/profile-tabs/applied-job";
+import BlogsTabContent from "@/components/profile-tabs/blogs";
+import ProfileTabContent from "@/components/profile-tabs/profile";
+import ProjectsTabContent from "@/components/profile-tabs/projects";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -23,25 +23,25 @@ const ProfilePage = ({
       title: "Profile",
       value: "profile",
       href: `/p/hello`,
-      content: <ProfileContent />,
+      content: <ProfileTabContent />,
     },
     {
       title: "Blogs",
       value: "blogs",
       href: "/p/hello?tabs=blogs",
-      content: <BlogsContent />,
+      content: <BlogsTabContent />,
     },
     {
       title: "Projects",
       value: "projects",
       href: "/p/hello?tabs=projects",
-      content: <ProjectsContent />,
+      content: <ProjectsTabContent />,
     },
     {
       title: "Applied Jobs",
       value: "applied-jobs",
       href: "/p/hello?tabs=applied-jobs",
-      content: <AppliedJobContent />,
+      content: <AppliedJobTabContent />,
     },
   ];
 

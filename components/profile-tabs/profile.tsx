@@ -1,7 +1,7 @@
 import { ProfileSection, ProfileSectionTitle } from "@/components/web-uis";
 import { fields } from "@/lib/placeholder-data";
 
-const ProfileContent = () => {
+const ProfileTabContent = () => {
   return (
     <>
       <ProfileSection>
@@ -58,4 +58,4 @@ const ProfileContent = () => {
   );
 };
 
-export default ProfileContent;
+export default ProfileTabContent;
