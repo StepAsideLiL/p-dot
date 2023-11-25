@@ -3,11 +3,22 @@ import { ProfileSection, ProfileSectionTitle } from "../web-uis";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
 import { dmSerifDisplay } from "@/lib/fonts";
+import { Button } from "../ui/button";
+import Link from "next/link";
+import { Plus } from "lucide-react";
 
 const BlogsTabContent = () => {
   return (
     <ProfileSection>
-      <ProfileSectionTitle>Blogs</ProfileSectionTitle>
+      <div className="flex justify-between items-center">
+        <ProfileSectionTitle>Blogs</ProfileSectionTitle>
+
+        <Button variant={"outline"} asChild>
+          <Link href={"/p/hello/new-blog"} className="flex">
+            <Plus size={16} /> <span>New Blog</span>
+          </Link>
+        </Button>
+      </div>
 
       <section className="space-y-4">
         {arr20.map((list) => (

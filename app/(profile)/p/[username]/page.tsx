@@ -1,7 +1,4 @@
-import AppliedJobTabContent from "@/components/profile-tabs/applied-job";
-import BlogsTabContent from "@/components/profile-tabs/blogs";
-import ProfileTabContent from "@/components/profile-tabs/profile";
-import ProjectsTabContent from "@/components/profile-tabs/projects";
+import { tabsList } from "@/components/menus";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -18,33 +15,6 @@ const ProfilePage = ({
   params: { username: string };
   searchParams: { tabs: string };
 }) => {
-  const tabsList = [
-    {
-      title: "Profile",
-      value: "profile",
-      href: `/p/hello`,
-      content: <ProfileTabContent />,
-    },
-    {
-      title: "Blogs",
-      value: "blogs",
-      href: "/p/hello?tabs=blogs",
-      content: <BlogsTabContent />,
-    },
-    {
-      title: "Projects",
-      value: "projects",
-      href: "/p/hello?tabs=projects",
-      content: <ProjectsTabContent />,
-    },
-    {
-      title: "Applied Jobs",
-      value: "applied-jobs",
-      href: "/p/hello?tabs=applied-jobs",
-      content: <AppliedJobTabContent />,
-    },
-  ];
-
   const tabsParam = tabs ? tabs : tabsList[0].value;
 
   return (
@@ -72,14 +42,30 @@ const ProfilePage = ({
           <p>{`Fullstack developer`}</p>
 
           <div>
-            <Button variant={"outline"}>Edit Profile</Button>
+            <Button variant={"outline"} asChild>
+              <Link href={"/p/hello/edit-profile"}>Edit Profile</Link>
+            </Button>
             <Button>Follow</Button>
           </div>
         </div>
       </section>
 
       <Tabs defaultValue={tabsList[0].value} value={tabsParam}>
-        <TabsList className="grid w-full grid-cols-4">
+        <TabsList
+          className={cn(
+            "grid w-full",
+            tabsList.length === 3 && "grid-cols-3",
+            tabsList.length === 4 && "grid-cols-4",
+            tabsList.length === 5 && "grid-cols-5",
+            tabsList.length === 6 && "grid-cols-6",
+            tabsList.length === 7 && "grid-cols-7",
+            tabsList.length === 8 && "grid-cols-8",
+            tabsList.length === 9 && "grid-cols-9",
+            tabsList.length === 10 && "grid-cols-10",
+            tabsList.length === 11 && "grid-cols-11",
+            tabsList.length === 12 && "grid-cols-12"
+          )}
+        >
           {tabsList.map((tab) => (
             <Link key={tab.value} href={tab.href} className="w-full block">
               <TabsTrigger value={tab.value} className="w-full">

@@ -2,11 +2,22 @@ import { arr20 } from "@/lib/placeholder-data";
 import { ProfileSection, ProfileSectionTitle } from "../web-uis";
 import { dmSerifDisplay } from "@/lib/fonts";
 import { cn } from "@/lib/utils";
+import { Button } from "../ui/button";
+import Link from "next/link";
+import { Plus } from "lucide-react";
 
 const ProjectsTabContent = () => {
   return (
     <ProfileSection>
-      <ProfileSectionTitle>Projects</ProfileSectionTitle>
+      <div className="flex justify-between items-center">
+        <ProfileSectionTitle>Projects</ProfileSectionTitle>
+
+        <Button variant={"outline"} asChild>
+          <Link href={"/p/hello/new-project"} className="flex">
+            <Plus size={16} /> <span>New Project</span>
+          </Link>
+        </Button>
+      </div>
 
       <section className="space-y-4 divide-y-2">
         {arr20.map((list) => (

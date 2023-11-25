@@ -9,31 +9,8 @@ import {
 } from "@/components/ui/sheet";
 import { UserAvatar } from "../web-uis";
 import Link from "next/link";
-import { FlaskConical, ListChecks, ScrollText, User2 } from "lucide-react";
 import { useState } from "react";
-
-const menusList = [
-  {
-    title: "Profile",
-    href: "/p/user",
-    icon: <User2 />,
-  },
-  {
-    title: "Blogs",
-    href: "/p/user?tabs=blogs",
-    icon: <ScrollText />,
-  },
-  {
-    title: "Projects",
-    href: "/p/user?tabs=projects",
-    icon: <FlaskConical />,
-  },
-  {
-    title: "Applied Jobs",
-    href: "/p/user?tabs=applied-jobs",
-    icon: <ListChecks />,
-  },
-];
+import { tabsList } from "@/components/menus";
 
 const ProfileMenu = () => {
   const [open, setOpen] = useState(false);
@@ -60,7 +37,7 @@ const ProfileMenu = () => {
 
         <nav>
           <ul className="space-y-1">
-            {menusList.map((list) => (
+            {tabsList.map((list) => (
               <li key={list.href}>
                 <Link
                   href={list.href}

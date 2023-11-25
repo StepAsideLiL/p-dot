@@ -73,7 +73,7 @@ export const ProfileSection = ({
   className = "",
 }: ChildrenClassname) => {
   return (
-    <section className={cn("border p-3 rounded space-y-1", className)}>
+    <section className={cn("border p-3 rounded space-y-2", className)}>
       {children}
     </section>
   );
