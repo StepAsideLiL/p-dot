@@ -22,7 +22,7 @@ const ProfilePage = ({
     {
       title: "Profile",
       value: "profile",
-      href: `/p/hello?tabs=profile`,
+      href: `/p/hello`,
       content: <ProfileContent />,
     },
     {

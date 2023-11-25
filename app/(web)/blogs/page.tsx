@@ -11,14 +11,14 @@ const PostsPage = () => {
 
       <section className="space-y-4 max-w-4xl mx-auto p-5 border rounded-sm divide-y-2">
         {arr20.map((list) => (
-          <PostCard key={list} />
+          <BlogCard key={list} />
         ))}
       </section>
     </Main>
   );
 };
 
-const PostCard = () => {
+const BlogCard = () => {
   return (
     <article className="p-2 space-y-2">
       <header>
