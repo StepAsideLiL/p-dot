@@ -55,12 +55,12 @@ export async function GET() {
           },
         });
       }
-
-      const createdSkills = await prisma.skill.findMany();
-
-      return Response.json(createdSkills);
+    } else {
+      console.log("Already Populated.");
     }
-    return Response.json({ status: "Already Populated." });
+
+    const createdSkills = await prisma.skill.findMany();
+    return Response.json(createdSkills);
   } catch (err) {
     console.log(err);
     throw new Error("Error occurred.");
