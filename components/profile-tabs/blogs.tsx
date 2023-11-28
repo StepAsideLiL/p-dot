@@ -7,7 +7,7 @@ import { Button } from "../ui/button";
 import Link from "next/link";
 import { Plus } from "lucide-react";
 
-const BlogsTabContent = () => {
+const BlogsTabContent = ({ username }: { username: string | undefined }) => {
   return (
     <ProfileSection>
       <div className="flex justify-between items-center">

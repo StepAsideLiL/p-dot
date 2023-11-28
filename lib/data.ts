@@ -8,3 +8,15 @@ export const allUsers = async () => {
   });
   return users;
 };
+
+export const singleUser = async (username: string) => {
+  const user = await prisma.user.findUnique({
+    where: {
+      username: username,
+    },
+    include: {
+      skills: true,
+    },
+  });
+  return user;
+};

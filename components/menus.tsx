@@ -21,35 +21,30 @@ export const tabsList = [
     value: "profile",
     href: `/p/hello`,
     icon: <User2 />,
-    content: <ProfileTabContent />,
   },
   {
     title: "Blogs",
     value: "blogs",
     href: "/p/hello?tabs=blogs",
     icon: <ScrollText />,
-    content: <BlogsTabContent />,
   },
   {
     title: "Projects",
     value: "projects",
     href: "/p/hello?tabs=projects",
     icon: <FlaskConical />,
-    content: <ProjectsTabContent />,
   },
   {
     title: "Jobs",
     value: "jobs",
     href: "/p/hello?tabs=jobs",
     icon: <Briefcase />,
-    content: <JobTabContent />,
   },
   {
     title: "Applied Jobs",
     value: "applied-jobs",
     href: "/p/hello?tabs=applied-jobs",
     icon: <ListChecks />,
-    content: <AppliedJobTabContent />,
   },
 ];
 

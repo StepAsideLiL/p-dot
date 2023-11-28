@@ -1,7 +1,10 @@
 import { ProfileSection, ProfileSectionTitle } from "@/components/web-uis";
+import { singleUser } from "@/lib/data";
 import { fields } from "@/lib/placeholder-data";
 
-const ProfileTabContent = () => {
+const ProfileTabContent = async ({ username }: { username: string }) => {
+  const user = await singleUser(username);
+
   return (
     <>
       <ProfileSection>
@@ -19,13 +22,13 @@ const ProfileTabContent = () => {
       <ProfileSection>
         <ProfileSectionTitle>Skills</ProfileSectionTitle>
 
-        <ul className="flex gap-2">
-          {fields.map((field) => (
+        <ul className="flex gap-2 flex-wrap">
+          {user?.skills.map((skill) => (
             <li
-              key={field.slug}
+              key={skill.slug}
               className="text-sm p-2 border border-1 rounded-3xl bg-zinc-200"
             >
-              {field.title}
+              {skill.title}
             </li>
           ))}
         </ul>

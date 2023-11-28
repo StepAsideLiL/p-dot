@@ -5,7 +5,11 @@ import { cn } from "@/lib/utils";
 import { Button } from "../ui/button";
 import Link from "next/link";
 
-const AppliedJobTabContent = () => {
+const AppliedJobTabContent = ({
+  username,
+}: {
+  username: string | undefined;
+}) => {
   return (
     <ProfileSection>
       <ProfileSectionTitle>Applied Jobs</ProfileSectionTitle>
