@@ -3,6 +3,7 @@ import { ChildrenClassname, Classname } from "@/lib/types";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Badge } from "@/components/ui/badge";
 
 export const Logo = () => {
   return (
@@ -85,5 +86,19 @@ export const ProfileSectionTitle = ({
 }: ChildrenClassname) => {
   return (
     <h1 className={cn("text-2xl font-semibold", className)}>{children}</h1>
+  );
+};
+
+export const WorkStatusBadge = ({ children }: { children: string }) => {
+  return (
+    <Badge
+      className={cn(
+        children === "AVAILABLE" && "bg-green-500",
+        children === "BUSY" && "bg-slate-500",
+        children === "HIRER" && "bg-blue-500"
+      )}
+    >
+      {children}
+    </Badge>
   );
 };

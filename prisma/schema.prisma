@@ -16,6 +16,12 @@ enum Role {
   HIRER
 }
 
+enum WorkStatus {
+  AVAILABLE
+  BUSY
+  HIRER
+}
+
 model User {
   id             String     @id @unique @default(uuid())
   email          String     @unique
@@ -23,6 +29,8 @@ model User {
   password       String
   name           String     @default("")
   profilePicture String     @default("")
+  workStatus     WorkStatus @default(AVAILABLE)
+  jobRole        String     @default("")
   role           Role       @default(USER)
   profile        Profile?
   skills         Skill[]
