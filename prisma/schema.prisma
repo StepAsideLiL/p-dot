@@ -1,0 +1,78 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "cockroachdb"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  ADMIN
+  USER
+  HIRER
+}
+
+model User {
+  id             String     @id @unique @default(uuid())
+  email          String     @unique
+  username       String     @unique
+  password       String
+  name           String     @default("")
+  profilePicture String     @default("")
+  role           Role       @default(USER)
+  profile        Profile?
+  skills         Skill[]
+  education      Education?
+  courses        Course?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Profile {
+  id     String @id @unique @default(uuid())
+  userId String @unique
+  user   User   @relation(fields: [userId], references: [id])
+  bio    String @default("")
+  about  String @default("")
+}
+
+model Skill {
+  id String @id @unique @default(uuid())
+
+  user User[]
+
+  title String
+  slug  String @unique
+}
+
+model Education {
+  id String @id @unique @default(uuid())
+
+  userId String @unique
+  user   User   @relation(fields: [userId], references: [id])
+
+  institutionName String   @default("")
+  degree          String   @default("")
+  fieldOfStudy    String   @default("")
+  gpa             Int      @default(0)
+  maxGpa          Int      @default(0)
+  startDate       DateTime @default(now())
+  finishDate      DateTime @default(now())
+}
+
+model Course {
+  id String @id @unique @default(uuid())
+
+  userId String @unique
+  User   User?  @relation(fields: [userId], references: [id])
+
+  institutionName String   @default("")
+  courseName      String   @default("")
+  startDate       DateTime @default(now())
+  finishDate      DateTime @default(now())
+}
