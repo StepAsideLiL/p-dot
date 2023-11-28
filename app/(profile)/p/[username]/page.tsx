@@ -97,7 +97,7 @@ const ProfilePage = async ({
                 Edit Profile
               </Link>
             </Button>
-            {/* <Button>Follow</Button> */}
+            <Button>Follow</Button>
           </div>
         </div>
       </section>
