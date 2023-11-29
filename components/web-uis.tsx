@@ -57,17 +57,32 @@ export const IsUserSignedIn = ({
   return signout;
 };
 
-export const UserAvatar = () => {
+export const UserAvatar = ({
+  user: { name, profilePicture },
+}: {
+  user: { name: string; profilePicture: string };
+}) => {
   return (
     <Avatar>
-      <AvatarImage
-        src={"/images/user-profile.png"}
-        alt={`User Profile Picture`}
-      />
-      <AvatarFallback>{`rifatkhan`}</AvatarFallback>
+      <AvatarImage src={profilePicture} alt={`Profile Picture of ${name}`} />
+      <AvatarFallback>{name}</AvatarFallback>
     </Avatar>
   );
 };
+
+// export const UserAvatar = async () => {
+//   const user = await userSession();
+
+//   return (
+//     <Avatar>
+//       <AvatarImage
+//         src={user!.profilePicture}
+//         alt={`Profile Picture of ${user!.name}`}
+//       />
+//       <AvatarFallback>{user!.name}</AvatarFallback>
+//     </Avatar>
+//   );
+// };
 
 export const ProfileSection = ({
   children,

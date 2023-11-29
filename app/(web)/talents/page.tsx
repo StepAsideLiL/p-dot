@@ -30,13 +30,13 @@ const TalentsPage = async () => {
         {users.map((user) => (
           <article
             key={user.id}
-            className="p-2 border border-slate-300 rounded max-w-sm"
+            className="p-2 border border-slate-300 rounded max-w-sm flex flex-col"
           >
             <div className="text-right">
               <WorkStatusBadge>{user.workStatus}</WorkStatusBadge>
             </div>
 
-            <div className="flex items-center flex-col gap-1">
+            <div className="flex items-center flex-col gap-2 flex-grow">
               <Image
                 src={user.profilePicture}
                 alt={`User Profile Picture`}
@@ -51,7 +51,7 @@ const TalentsPage = async () => {
 
               <p className="py-1">{user.jobRole}</p>
 
-              <ul className="flex flex-wrap gap-2 justify-center">
+              <ul className="flex flex-wrap gap-2 justify-center flex-grow items-center">
                 {user.skills.slice(0, 5).map((skill) => (
                   <li
                     key={skill.slug}
@@ -62,7 +62,7 @@ const TalentsPage = async () => {
                 ))}
               </ul>
 
-              <Button asChild className="my-2">
+              <Button asChild className="my-2 mt-auto">
                 <Link href={`p/${user.username}`}>View Profile</Link>
               </Button>
             </div>

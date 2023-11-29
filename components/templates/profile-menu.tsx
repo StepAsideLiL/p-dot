@@ -7,30 +7,98 @@ import {
   SheetHeader,
   SheetTrigger,
 } from "@/components/ui/sheet";
+import {
+  Briefcase,
+  CalendarPlus,
+  FlaskConical,
+  ListChecks,
+  PackagePlus,
+  PenLine,
+  ScrollText,
+  User2,
+  UserCog2,
+} from "lucide-react";
 import { UserAvatar } from "@/components/web-uis";
 import Link from "next/link";
 import { useState } from "react";
-import { addContentsMenu, tabsList } from "@/components/menus";
 import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
 
-const ProfileMenu = () => {
+const ProfileMenu = ({
+  username,
+  name,
+  profilePicture,
+}: {
+  username: string;
+  name: string;
+  profilePicture: string;
+}) => {
   const [open, setOpen] = useState(false);
+  const tabsList = [
+    {
+      title: "Profile",
+      href: `/p/${username}`,
+      icon: <User2 />,
+    },
+    {
+      title: "Blogs",
+      href: `/p/${username}?tabs=blogs`,
+      icon: <ScrollText />,
+    },
+    {
+      title: "Projects",
+      href: `/p/${username}?tabs=projects`,
+      icon: <FlaskConical />,
+    },
+    {
+      title: "Jobs",
+      href: `/p/${username}?tabs=jobs`,
+      icon: <Briefcase />,
+    },
+    {
+      title: "Applied Jobs",
+      href: `/p/${username}?tabs=applied-jobs`,
+      icon: <ListChecks />,
+    },
+  ];
+
+  const addContentsMenu = [
+    {
+      title: "Edit Profile",
+      href: `/p/${username}/edit-profile`,
+      icon: <UserCog2 />,
+    },
+    {
+      title: "New Blog",
+      href: `/p/${username}/new-blog`,
+      icon: <PenLine />,
+    },
+    {
+      title: "New Project",
+      href: `/p/${username}/new-project`,
+      icon: <PackagePlus />,
+    },
+    {
+      title: "New Job",
+      href: `/p/${username}/new-job`,
+      icon: <CalendarPlus />,
+    },
+  ];
 
   return (
     <Sheet open={open} onOpenChange={setOpen}>
       <SheetTrigger>
-        <UserAvatar />
+        <UserAvatar user={{ name, profilePicture }} />
       </SheetTrigger>
 
       <SheetContent className="space-y-2">
         <SheetHeader>
           <div className="flex gap-1">
-            <UserAvatar />
+            <UserAvatar user={{ name, profilePicture }} />
 
             <div className="text-sm">
-              <h1 className="font-semibold">Rifat Khan</h1>
-              <p className="text-foreground">rifatkhan</p>
+              <h1 className="font-semibold">{name}</h1>
+              <p className="text-foreground">{username}</p>
             </div>
           </div>
 

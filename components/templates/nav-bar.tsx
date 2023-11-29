@@ -1,11 +1,13 @@
-import React from "react";
 import { IsUserSignedIn, LogoLink } from "../web-uis";
 import NavLinks from "./nav-links";
 import { Button } from "../ui/button";
 import Link from "next/link";
 import ProfileMenu from "./profile-menu";
+import { userSession } from "@/lib/data";
 
-const Navbar = () => {
+const Navbar = async () => {
+  const user = await userSession();
+
   return (
     <header className="py-3 container px-0 flex gap-1 items-center">
       <LogoLink />
@@ -28,7 +30,13 @@ const Navbar = () => {
               </Button>
             </>
           }
-          signin={<ProfileMenu />}
+          signin={
+            <ProfileMenu
+              username={user!.username}
+              name={user!.name}
+              profilePicture={user!.profilePicture}
+            />
+          }
         />
       </div>
     </header>

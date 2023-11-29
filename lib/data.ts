@@ -20,3 +20,13 @@ export const singleUser = async (username: string) => {
   });
   return user;
 };
+
+export const userSession = async () => {
+  const user = await prisma.user.findUnique({
+    where: {
+      username: "Noah.Blanda-Bosco",
+    },
+  });
+
+  return user;
+};

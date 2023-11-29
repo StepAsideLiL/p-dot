@@ -110,12 +110,12 @@ const ProfilePage = async ({
             tabsList.length === 4 && "grid-cols-4",
             tabsList.length === 5 && "grid-cols-5",
             tabsList.length === 6 && "grid-cols-6",
-            tabsList.length === 7 && "grid-cols-7"
-            // tabsList.length === 8 && "grid-cols-8",
-            // tabsList.length === 9 && "grid-cols-9",
-            // tabsList.length === 10 && "grid-cols-10",
-            // tabsList.length === 11 && "grid-cols-11",
-            // tabsList.length === 12 && "grid-cols-12"
+            tabsList.length === 7 && "grid-cols-7",
+            tabsList.length === 8 && "grid-cols-8",
+            tabsList.length === 9 && "grid-cols-9",
+            tabsList.length === 10 && "grid-cols-10",
+            tabsList.length === 11 && "grid-cols-11",
+            tabsList.length === 12 && "grid-cols-12"
           )}
         >
           {tabsList.map((tab) => (

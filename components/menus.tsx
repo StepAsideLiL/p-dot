@@ -1,8 +1,3 @@
-import AppliedJobTabContent from "@/components/profile-tabs/applied-job";
-import BlogsTabContent from "@/components/profile-tabs/blogs";
-import JobTabContent from "@/components/profile-tabs/job";
-import ProfileTabContent from "@/components/profile-tabs/profile";
-import ProjectsTabContent from "@/components/profile-tabs/projects";
 import {
   Briefcase,
   CalendarPlus,
@@ -15,7 +10,7 @@ import {
   UserCog2,
 } from "lucide-react";
 
-export const tabsList = [
+const tabsList = [
   {
     title: "Profile",
     value: "profile",
@@ -48,7 +43,7 @@ export const tabsList = [
   },
 ];
 
-export const addContentsMenu = [
+const addContentsMenu = [
   {
     title: "Edit Profile",
     href: "/p/hello/edit-profile",
