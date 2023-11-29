@@ -1,33 +1,55 @@
+import { cache } from "react";
 import prisma from "./prismadb";
 
-export const allUsers = async () => {
-  const users = await prisma.user.findMany({
-    include: {
-      skills: true,
-    },
-  });
-  return users;
-};
+export const allUsers = cache(async () => {
+  try {
+    await new Promise((resolve) => setTimeout(resolve, 5000));
 
-export const singleUser = async (username: string) => {
-  const user = await prisma.user.findUnique({
-    where: {
-      username: username,
-    },
-    include: {
-      skills: true,
-    },
-  });
-  return user;
-};
+    const users = await prisma.user.findMany({
+      include: {
+        skills: true,
+      },
+    });
+    return users;
+  } catch (err) {
+    console.log(err);
+    throw new Error("Failed to fetch all users.");
+  }
+});
 
-export const useSession = async () => {
-  const user = await prisma.user.findUnique({
-    where: {
-      username: "Noah.Blanda-Bosco",
-      // username: "Noah.Blanda-Boscoacasc",
-    },
-  });
+export const singleUser = cache(async (username: string) => {
+  try {
+    await new Promise((resolve) => setTimeout(resolve, 5000));
 
-  return user;
-};
+    const user = await prisma.user.findUnique({
+      where: {
+        username: username,
+      },
+      include: {
+        skills: true,
+      },
+    });
+    return user;
+  } catch (err) {
+    console.log(err);
+    throw new Error("Failed to fetch unique user.");
+  }
+});
+
+export const useSession = cache(async () => {
+  try {
+    await new Promise((resolve) => setTimeout(resolve, 3000));
+
+    const user = await prisma.user.findUnique({
+      where: {
+        username: "Noah.Blanda-Bosco",
+        // username: "Noah.Blanda-Boscoacasc",
+      },
+    });
+
+    return user;
+  } catch (err) {
+    console.log(err);
+    throw new Error("Failed to fetch user session.");
+  }
+});

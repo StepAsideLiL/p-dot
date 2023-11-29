@@ -19,7 +19,7 @@ const ProjectsTabContent = ({ username }: { username: string | undefined }) => {
         </Button>
       </div>
 
-      <section className="space-y-4 divide-y-2">
+      <section className="space-y-4">
         {arr20.map((list) => (
           <ProjectCard key={list} />
         ))}
