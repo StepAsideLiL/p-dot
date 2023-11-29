@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Main, WorkStatusBadge } from "@/components/web-uis";
-import { singleUser } from "@/lib/data";
+import { IsUserSignedIn, Main, WorkStatusBadge } from "@/components/web-uis";
+import { singleUser, useSession } from "@/lib/data";
 import { dmSerifDisplay } from "@/lib/fonts";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
@@ -27,6 +27,9 @@ const ProfilePage = async ({
   searchParams: { tabs: string };
 }) => {
   const user = await singleUser(username);
+  const signedInUser = await useSession();
+  const isUserSignedIn =
+    signedInUser?.username === user?.username ? true : false;
 
   const tabsList = [
     {
@@ -92,12 +95,23 @@ const ProfilePage = async ({
           <p>{user!.jobRole}</p>
 
           <div>
-            <Button variant={"outline"} asChild>
-              <Link href={`/p/${user!.username}/edit-profile`}>
-                Edit Profile
-              </Link>
-            </Button>
-            <Button>Follow</Button>
+            <IsUserSignedIn
+              isUserSignedIn={isUserSignedIn}
+              signin={
+                <>
+                  <Button variant={"outline"} asChild>
+                    <Link href={`/p/${user!.username}/edit-profile`}>
+                      Edit Profile
+                    </Link>
+                  </Button>
+                </>
+              }
+              signout={
+                <>
+                  <Button>Follow</Button>
+                </>
+              }
+            />
           </div>
         </div>
       </section>

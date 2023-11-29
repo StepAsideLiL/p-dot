@@ -4,6 +4,7 @@ import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
+import { useSession } from "@/lib/data";
 
 export const Logo = () => {
   return (
@@ -41,26 +42,26 @@ export const PageBanner = ({ children, className = "" }: ChildrenClassname) => {
   );
 };
 
-export const IsUserSignedIn = ({
-  user = false,
+export const IsUserSignedIn = async ({
+  isUserSignedIn = false,
   signin,
   signout,
 }: {
-  user?: boolean;
+  isUserSignedIn?: boolean;
   signin: React.ReactNode;
   signout: React.ReactNode;
 }) => {
-  if (user) {
-    return signin;
+  if (isUserSignedIn) {
+    return <>{signin}</>;
   }
 
-  return signout;
+  return <>{signout}</>;
 };
 
 export const UserAvatar = ({
   user: { name, profilePicture },
 }: {
-  user: { name: string; profilePicture: string };
+  user: { name: string | undefined; profilePicture: string | undefined };
 }) => {
   return (
     <Avatar>
@@ -71,7 +72,7 @@ export const UserAvatar = ({
 };
 
 // export const UserAvatar = async () => {
-//   const user = await userSession();
+//   const user = await useSession();
 
 //   return (
 //     <Avatar>

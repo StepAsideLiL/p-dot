@@ -3,10 +3,11 @@ import NavLinks from "./nav-links";
 import { Button } from "../ui/button";
 import Link from "next/link";
 import ProfileMenu from "./profile-menu";
-import { userSession } from "@/lib/data";
+import { useSession } from "@/lib/data";
 
 const Navbar = async () => {
-  const user = await userSession();
+  const user = await useSession();
+  const isUserSignedIn = user ? true : false;
 
   return (
     <header className="py-3 container px-0 flex gap-1 items-center">
@@ -18,7 +19,7 @@ const Navbar = async () => {
 
       <div className="flex gap-1">
         <IsUserSignedIn
-          user={true}
+          isUserSignedIn={isUserSignedIn}
           signout={
             <>
               <Button variant={"secondary"} asChild>
@@ -32,9 +33,9 @@ const Navbar = async () => {
           }
           signin={
             <ProfileMenu
-              username={user!.username}
-              name={user!.name}
-              profilePicture={user!.profilePicture}
+              username={user?.username}
+              name={user?.name}
+              profilePicture={user?.profilePicture}
             />
           }
         />

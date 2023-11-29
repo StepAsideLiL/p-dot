@@ -29,9 +29,9 @@ const ProfileMenu = ({
   name,
   profilePicture,
 }: {
-  username: string;
-  name: string;
-  profilePicture: string;
+  username: string | undefined;
+  name: string | undefined;
+  profilePicture: string | undefined;
 }) => {
   const [open, setOpen] = useState(false);
   const tabsList = [
