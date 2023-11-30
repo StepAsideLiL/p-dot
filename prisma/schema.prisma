@@ -31,22 +31,22 @@ model User {
   profilePicture String     @default("")
   workStatus     WorkStatus @default(AVAILABLE)
   jobRole        String     @default("")
+  bio            String     @default("")
   role           Role       @default(USER)
   profile        Profile?
   skills         Skill[]
-  education      Education?
-  courses        Course?
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
 
 model Profile {
-  id     String @id @unique @default(uuid())
-  userId String @unique
-  user   User   @relation(fields: [userId], references: [id])
-  bio    String @default("")
-  about  String @default("")
+  id        String     @id @unique @default(uuid())
+  userId    String     @unique
+  user      User       @relation(fields: [userId], references: [id])
+  about     String     @default("")
+  education Education?
+  courses   Course?
 }
 
 model Skill {
@@ -61,8 +61,8 @@ model Skill {
 model Education {
   id String @id @unique @default(uuid())
 
-  userId String @unique
-  user   User   @relation(fields: [userId], references: [id])
+  profileId String  @unique
+  profile   Profile @relation(fields: [profileId], references: [id])
 
   institutionName String   @default("")
   degree          String   @default("")
@@ -76,8 +76,8 @@ model Education {
 model Course {
   id String @id @unique @default(uuid())
 
-  userId String @unique
-  User   User?  @relation(fields: [userId], references: [id])
+  profileId String  @unique
+  profile   Profile @relation(fields: [profileId], references: [id])
 
   institutionName String   @default("")
   courseName      String   @default("")

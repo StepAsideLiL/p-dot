@@ -33,6 +33,8 @@ const ProfileBanner = async ({ username }: { username: string }) => {
 
         <p>{user!.jobRole}</p>
 
+        <p className="text-muted-foreground">{user!.bio}</p>
+
         <div>
           <IsUserSignedIn
             isUserSignedIn={isUserSignedIn}

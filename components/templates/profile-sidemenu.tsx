@@ -28,11 +28,15 @@ const ProfileSideMenu = ({
   username,
   name,
   profilePicture,
+  bio,
 }: {
   username: string | undefined;
   name: string | undefined;
   profilePicture: string | undefined;
+  bio: string | undefined;
 }) => {
+  console.log(bio);
+
   const [open, setOpen] = useState(false);
   const tabsList = [
     {
@@ -102,7 +106,7 @@ const ProfileSideMenu = ({
             </div>
           </div>
 
-          <SheetDescription>{`What are you about`}</SheetDescription>
+          <SheetDescription>{bio}</SheetDescription>
         </SheetHeader>
 
         <nav>

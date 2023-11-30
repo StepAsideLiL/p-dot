@@ -59,7 +59,9 @@ export const ProfileBannerSkeleton = () => {
       </div>
 
       <div className="space-y-2">
-        <Skeleton className="w-60 h-14"></Skeleton>
+        <Skeleton className="w-80 h-14"></Skeleton>
+
+        <Skeleton className="w-48 h-6"></Skeleton>
 
         <Skeleton className="w-48 h-6"></Skeleton>
 

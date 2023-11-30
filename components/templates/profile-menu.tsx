@@ -28,6 +28,7 @@ const ProfileMenu = async () => {
             username={user?.username}
             name={user?.name}
             profilePicture={user?.profilePicture}
+            bio={user?.bio}
           />
         }
       />
