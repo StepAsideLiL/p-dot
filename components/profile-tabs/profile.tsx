@@ -1,6 +1,6 @@
 import { ProfileSection, ProfileSectionTitle } from "@/components/web-uis";
 import { singleUser } from "@/lib/data";
-import { fields } from "@/lib/placeholder-data";
+import { isoDateToMonthYear } from "@/lib/utils";
 
 const ProfileTabContent = async ({ username }: { username: string }) => {
   const user = await singleUser(username);
@@ -10,13 +10,7 @@ const ProfileTabContent = async ({ username }: { username: string }) => {
       <ProfileSection>
         <ProfileSectionTitle>About</ProfileSectionTitle>
 
-        <p>
-          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Maxime
-          possimus officia, distinctio facere dolorum explicabo repudiandae
-          provident laboriosam omnis! Eum, doloremque cum impedit architecto ex
-          qui ut voluptatum quam reprehenderit nemo sed ea sapiente voluptatibus
-          non sequi facilis. Tempore, possimus.
-        </p>
+        <div dangerouslySetInnerHTML={{ __html: user!.profile!.about }} />
       </ProfileSection>
 
       <ProfileSection>
@@ -38,11 +32,21 @@ const ProfileTabContent = async ({ username }: { username: string }) => {
         <ProfileSectionTitle>Education</ProfileSectionTitle>
 
         <ul className="space-y-1">
-          <li>
-            <h1 className="text-xl">JKKNIU</h1>
-            <p>B.Sc in EEE</p>
-            <p>Feb 2017 - May 2023</p>
-          </li>
+          {user?.profile?.education.map((list) => (
+            <li key={list.id}>
+              <h1 className="text-xl">{list.institutionName}</h1>
+              <p>
+                {list.degree} in {list.fieldOfStudy}
+              </p>
+              <p>
+                Grade {list.gpa} out of {list.maxGpa}
+              </p>
+              <p>
+                {isoDateToMonthYear(list.startDate.toISOString())} -{" "}
+                {isoDateToMonthYear(list.finishDate.toISOString())}
+              </p>
+            </li>
+          ))}
         </ul>
       </ProfileSection>
 
@@ -50,11 +54,16 @@ const ProfileTabContent = async ({ username }: { username: string }) => {
         <ProfileSectionTitle>Courses and Certificates</ProfileSectionTitle>
 
         <ul className="space-y-1">
-          <li>
-            <h1 className="text-xl">Programming Hero</h1>
-            <p>Complete Web Development With Jangkar Mahbub</p>
-            <p>Jan 2023 - Aug 2023</p>
-          </li>
+          {user?.profile?.courses.map((list) => (
+            <li key={list.id}>
+              <h1 className="text-xl">{list.institutionName}</h1>
+              <p>{list.courseName}</p>
+              <p>
+                {isoDateToMonthYear(list.startDate.toISOString())} -{" "}
+                {isoDateToMonthYear(list.finishDate.toISOString())}
+              </p>
+            </li>
+          ))}
         </ul>
       </ProfileSection>
     </>

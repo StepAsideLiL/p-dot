@@ -41,12 +41,12 @@ model User {
 }
 
 model Profile {
-  id        String     @id @unique @default(uuid())
-  userId    String     @unique
-  user      User       @relation(fields: [userId], references: [id])
-  about     String     @default("")
-  education Education?
-  courses   Course?
+  id        String      @id @unique @default(uuid())
+  userId    String      @unique
+  user      User        @relation(fields: [userId], references: [id])
+  about     String      @default("")
+  education Education[]
+  courses   Course[]
 }
 
 model Skill {
@@ -61,7 +61,7 @@ model Skill {
 model Education {
   id String @id @unique @default(uuid())
 
-  profileId String  @unique
+  profileId String
   profile   Profile @relation(fields: [profileId], references: [id])
 
   institutionName String   @default("")
@@ -76,7 +76,7 @@ model Education {
 model Course {
   id String @id @unique @default(uuid())
 
-  profileId String  @unique
+  profileId String
   profile   Profile @relation(fields: [profileId], references: [id])
 
   institutionName String   @default("")

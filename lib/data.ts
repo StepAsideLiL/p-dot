@@ -3,7 +3,7 @@ import prisma from "./prismadb";
 
 export const allUsers = cache(async () => {
   try {
-    await new Promise((resolve) => setTimeout(resolve, 5000));
+    // await new Promise((resolve) => setTimeout(resolve, 5000));
 
     const users = await prisma.user.findMany({
       include: {
@@ -19,7 +19,7 @@ export const allUsers = cache(async () => {
 
 export const singleUser = cache(async (username: string) => {
   try {
-    await new Promise((resolve) => setTimeout(resolve, 5000));
+    // await new Promise((resolve) => setTimeout(resolve, 5000));
 
     const user = await prisma.user.findUnique({
       where: {
@@ -27,6 +27,12 @@ export const singleUser = cache(async (username: string) => {
       },
       include: {
         skills: true,
+        profile: {
+          include: {
+            education: true,
+            courses: true,
+          },
+        },
       },
     });
     return user;
@@ -38,7 +44,7 @@ export const singleUser = cache(async (username: string) => {
 
 export const useSession = cache(async () => {
   try {
-    await new Promise((resolve) => setTimeout(resolve, 3000));
+    // await new Promise((resolve) => setTimeout(resolve, 3000));
 
     const user = await prisma.user.findUnique({
       where: {

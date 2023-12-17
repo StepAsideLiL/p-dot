@@ -17,3 +17,11 @@ export function getRandomElement(arr: string[]): string {
   const randomIndex = Math.floor(Math.random() * arr.length);
   return arr[randomIndex];
 }
+
+export function isoDateToMonthYear(isoDate: string): string {
+  const date = new Date(isoDate);
+  const month = date.toLocaleString("default", { month: "long" });
+  const year = date.getFullYear();
+
+  return `${month}, ${year}`;
+}

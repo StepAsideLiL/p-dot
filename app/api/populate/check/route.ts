@@ -2,9 +2,10 @@ import prisma from "@/lib/prismadb";
 
 export async function GET() {
   try {
-    const users = await prisma.user.findMany({
+    const users = await prisma.profile.findMany({
       include: {
-        skills: true,
+        education: true,
+        courses: true,
       },
     });
     return Response.json(users);

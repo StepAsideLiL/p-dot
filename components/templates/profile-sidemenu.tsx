@@ -35,8 +35,6 @@ const ProfileSideMenu = ({
   profilePicture: string | undefined;
   bio: string | undefined;
 }) => {
-  console.log(bio);
-
   const [open, setOpen] = useState(false);
   const tabsList = [
     {
