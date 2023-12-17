@@ -1,20 +1,58 @@
-import { ProfileSection, ProfileSectionTitle } from "@/components/web-uis";
-import { singleUser } from "@/lib/data";
+import {
+  IsUserSignedIn,
+  ProfileSection,
+  ProfileSectionTitle,
+} from "@/components/web-uis";
+import { singleUser, useSession } from "@/lib/data";
 import { isoDateToMonthYear } from "@/lib/utils";
+import { Edit } from "lucide-react";
+import { Button } from "../ui/button";
+import Link from "next/link";
 
 const ProfileTabContent = async ({ username }: { username: string }) => {
   const user = await singleUser(username);
+  const signedInUser = await useSession();
+  const isUserSignedIn =
+    signedInUser?.username === user?.username ? true : false;
 
   return (
     <>
       <ProfileSection>
-        <ProfileSectionTitle>About</ProfileSectionTitle>
+        <div className="flex items-center justify-between">
+          <ProfileSectionTitle>About</ProfileSectionTitle>
+
+          <IsUserSignedIn
+            isUserSignedIn={isUserSignedIn}
+            signin={
+              <Button variant={"ghost"} asChild>
+                <Link href={`/p/${user?.username}/edit-profile#about`}>
+                  <Edit />
+                </Link>
+              </Button>
+            }
+            signout={""}
+          />
+        </div>
 
         <div dangerouslySetInnerHTML={{ __html: user!.profile!.about }} />
       </ProfileSection>
 
       <ProfileSection>
-        <ProfileSectionTitle>Skills</ProfileSectionTitle>
+        <div className="flex items-center justify-between">
+          <ProfileSectionTitle>Skills</ProfileSectionTitle>
+
+          <IsUserSignedIn
+            isUserSignedIn={isUserSignedIn}
+            signin={
+              <Button variant={"ghost"} asChild>
+                <Link href={`/p/${user?.username}/edit-profile#skills`}>
+                  <Edit />
+                </Link>
+              </Button>
+            }
+            signout={""}
+          />
+        </div>
 
         <ul className="flex gap-2 flex-wrap">
           {user?.skills.map((skill) => (
@@ -29,7 +67,21 @@ const ProfileTabContent = async ({ username }: { username: string }) => {
       </ProfileSection>
 
       <ProfileSection>
-        <ProfileSectionTitle>Education</ProfileSectionTitle>
+        <div className="flex items-center justify-between">
+          <ProfileSectionTitle>Education</ProfileSectionTitle>
+
+          <IsUserSignedIn
+            isUserSignedIn={isUserSignedIn}
+            signin={
+              <Button variant={"ghost"} asChild>
+                <Link href={`/p/${user?.username}/edit-profile#education`}>
+                  <Edit />
+                </Link>
+              </Button>
+            }
+            signout={""}
+          />
+        </div>
 
         <ul className="space-y-1">
           {user?.profile?.education.map((list) => (
@@ -51,7 +103,23 @@ const ProfileTabContent = async ({ username }: { username: string }) => {
       </ProfileSection>
 
       <ProfileSection>
-        <ProfileSectionTitle>Courses and Certificates</ProfileSectionTitle>
+        <div className="flex items-center justify-between">
+          <ProfileSectionTitle>Courses and Certificates</ProfileSectionTitle>
+
+          <IsUserSignedIn
+            isUserSignedIn={isUserSignedIn}
+            signin={
+              <Button variant={"ghost"} asChild>
+                <Link
+                  href={`/p/${user?.username}/edit-profile#courses-and-certificates`}
+                >
+                  <Edit />
+                </Link>
+              </Button>
+            }
+            signout={""}
+          />
+        </div>
 
         <ul className="space-y-1">
           {user?.profile?.courses.map((list) => (
