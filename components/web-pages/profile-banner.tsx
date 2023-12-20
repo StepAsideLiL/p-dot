@@ -41,7 +41,7 @@ const ProfileBanner = async ({ username }: { username: string }) => {
             isUserSignedIn={isUserSignedIn}
             signin={
               <Button variant={"outline"} asChild>
-                <Link href={`/p/${user!.username}/edit-profile`}>
+                <Link href={`/p/${user!.username}/edit/profile`}>
                   Edit Profile
                 </Link>
               </Button>
