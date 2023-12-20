@@ -1,7 +1,9 @@
-import { cache } from "react";
+import { unstable_noStore as noStore } from "next/cache";
 import prisma from "./prismadb";
 
-export const allUsers = cache(async () => {
+export const allUsers = async () => {
+  noStore();
+
   try {
     // await new Promise((resolve) => setTimeout(resolve, 5000));
 
@@ -10,14 +12,17 @@ export const allUsers = cache(async () => {
         skills: true,
       },
     });
+
     return users;
   } catch (err) {
     console.log(err);
     throw new Error("Failed to fetch all users.");
   }
-});
+};
 
-export const singleUser = cache(async (username: string) => {
+export const singleUser = async (username: string) => {
+  noStore();
+
   try {
     // await new Promise((resolve) => setTimeout(resolve, 5000));
 
@@ -35,14 +40,17 @@ export const singleUser = cache(async (username: string) => {
         },
       },
     });
+
     return user;
   } catch (err) {
     console.log(err);
     throw new Error("Failed to fetch unique user.");
   }
-});
+};
 
-export const useSession = cache(async () => {
+export const useSession = async () => {
+  noStore();
+
   try {
     // await new Promise((resolve) => setTimeout(resolve, 3000));
 
@@ -58,4 +66,4 @@ export const useSession = cache(async () => {
     console.log(err);
     throw new Error("Failed to fetch user session.");
   }
-});
+};
