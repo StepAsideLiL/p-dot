@@ -32,14 +32,16 @@ export async function GET() {
 
     if (users.length !== 0) {
       users.map(async (user) => {
-        await prisma.user.update({
-          where: {
-            id: user.id,
-          },
-          data: {
-            jobRole: getRandomElement(jobRoles),
-          },
-        });
+        if (user.jobRole === "") {
+          await prisma.user.update({
+            where: {
+              id: user.id,
+            },
+            data: {
+              jobRole: getRandomElement(jobRoles),
+            },
+          });
+        }
       });
     } else {
       console.log("Already Modified.");

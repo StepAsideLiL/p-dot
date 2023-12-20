@@ -3,22 +3,28 @@ import { faker } from "@faker-js/faker";
 
 export async function GET() {
   try {
-    const users = await prisma.user.findMany();
+    const users = await prisma.user.findMany({
+      include: {
+        profile: true,
+      },
+    });
 
     if (users.length !== 0) {
       users.map(async (user) => {
-        await prisma.user.update({
-          where: {
-            id: user.id,
-          },
-          data: {
-            profile: {
-              create: {
-                about: faker.lorem.paragraphs(5, "<br/>\n"),
+        if (user.profile?.about === "") {
+          await prisma.user.update({
+            where: {
+              id: user.id,
+            },
+            data: {
+              profile: {
+                create: {
+                  about: faker.lorem.paragraphs(5, "<br/>\n"),
+                },
               },
             },
-          },
-        });
+          });
+        }
       });
     } else {
       console.log("Already Modified.");

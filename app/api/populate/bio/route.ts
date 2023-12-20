@@ -7,14 +7,16 @@ export async function GET() {
 
     if (users.length !== 0) {
       users.map(async (user) => {
-        await prisma.user.update({
-          where: {
-            id: user.id,
-          },
-          data: {
-            bio: faker.person.bio(),
-          },
-        });
+        if (user.bio === "") {
+          await prisma.user.update({
+            where: {
+              id: user.id,
+            },
+            data: {
+              bio: faker.person.bio(),
+            },
+          });
+        }
       });
     } else {
       console.log("Already Modified.");
