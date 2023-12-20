@@ -15,13 +15,14 @@ const ProfileBanner = async ({ username }: { username: string }) => {
   return (
     <section className="flex gap-4 items-center">
       <div className="flex flex-col items-center gap-1">
-        <Image
-          src={user!.profilePicture || "/images/user-profile.png"}
-          alt={`Profile Picture of ${user!.name}`}
-          width={512}
-          height={512}
-          className="w-40 rounded-full"
-        />
+        <div className="relative w-40 h-40">
+          <Image
+            src={user!.profilePicture || "/images/user-profile.png"}
+            alt={`Profile Picture of ${user!.name}`}
+            fill
+            className="object-cover rounded-full"
+          />
+        </div>
 
         <WorkStatusBadge>{user!.workStatus || "AVAILABLE"}</WorkStatusBadge>
       </div>

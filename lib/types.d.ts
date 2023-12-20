@@ -10,3 +10,13 @@ export type ChildrenClassname = {
   children: React.ReactNode;
   className?: string;
 };
+
+export type ProfileForm = {
+  username: string;
+  name: string;
+  jobRole: string;
+  bio: string;
+  workStatus: string;
+  profilePicture: string;
+  profilePictureId: string;
+};

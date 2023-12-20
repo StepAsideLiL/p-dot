@@ -23,7 +23,11 @@ export const LogoLink = ({ className }: Classname) => {
 };
 
 export const Main = ({ children, className = "" }: ChildrenClassname) => {
-  return <main className={cn("flex-1 py-4", className)}>{children}</main>;
+  return (
+    <main className={cn("min-h-screen flex-1 py-4", className)}>
+      {children}
+    </main>
+  );
 };
 
 export const PageBanner = ({ children, className = "" }: ChildrenClassname) => {
@@ -116,5 +120,16 @@ export const WorkStatusBadge = ({ children }: { children: string }) => {
     >
       {children}
     </Badge>
+  );
+};
+
+export const EditAndAddPageTitle = ({
+  children,
+  className = "",
+}: ChildrenClassname) => {
+  return (
+    <h1 className={cn("text-3xl font-semibold border-b pb-2", className)}>
+      {children}
+    </h1>
   );
 };

@@ -23,18 +23,19 @@ enum WorkStatus {
 }
 
 model User {
-  id             String     @id @unique @default(uuid())
-  email          String     @unique
-  username       String     @unique
-  password       String
-  name           String     @default("")
-  profilePicture String     @default("")
-  workStatus     WorkStatus @default(AVAILABLE)
-  jobRole        String     @default("")
-  bio            String     @default("")
-  role           Role       @default(USER)
-  profile        Profile?
-  skills         Skill[]
+  id               String     @id @unique @default(uuid())
+  email            String     @unique
+  username         String     @unique
+  password         String
+  name             String     @default("")
+  profilePicture   String     @default("")
+  profilePictureId String     @default("")
+  workStatus       WorkStatus @default(AVAILABLE)
+  jobRole          String     @default("")
+  bio              String     @default("")
+  role             Role       @default(USER)
+  profile          Profile?
+  skills           Skill[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
