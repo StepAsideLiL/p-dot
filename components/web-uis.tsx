@@ -4,7 +4,7 @@ import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
-import { useSession } from "@/lib/data";
+import { cva } from "class-variance-authority";
 
 export const Logo = () => {
   return (
@@ -23,11 +23,7 @@ export const LogoLink = ({ className }: Classname) => {
 };
 
 export const Main = ({ children, className = "" }: ChildrenClassname) => {
-  return (
-    <main className={cn("min-h-screen flex-1 py-4", className)}>
-      {children}
-    </main>
-  );
+  return <main className={cn("min-h-screen py-4", className)}>{children}</main>;
 };
 
 export const PageBanner = ({ children, className = "" }: ChildrenClassname) => {

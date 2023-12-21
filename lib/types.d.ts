@@ -20,3 +20,8 @@ export type ProfileForm = {
   profilePicture: string;
   profilePictureId: string;
 };
+
+export type AboutForm = {
+  username: string;
+  about: string;
+};

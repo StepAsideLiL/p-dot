@@ -1,6 +1,6 @@
 "use server";
 
-import { ProfileForm } from "@/lib/types";
+import { AboutForm, ProfileForm } from "@/lib/types";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import prisma from "@/lib/prismadb";
@@ -38,6 +38,31 @@ export const updateProfile = async (values: ProfileForm) => {
   } catch (err) {
     console.log(err);
     throw new Error("Failed to update user profile.");
+  }
+
+  revalidatePath(`/p/${username}`);
+  redirect(`/p/${username}`);
+};
+
+export const updateAbout = async (valuse: AboutForm) => {
+  const { username, about } = valuse;
+
+  try {
+    await prisma.user.update({
+      where: {
+        username: username,
+      },
+      data: {
+        profile: {
+          update: {
+            about: about,
+          },
+        },
+      },
+    });
+  } catch (err) {
+    console.log(err);
+    throw new Error("Failed to update user about.");
   }
 
   revalidatePath(`/p/${username}`);
