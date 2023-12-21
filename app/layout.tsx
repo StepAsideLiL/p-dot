@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import "./main.css";
 import { Children } from "@/lib/types";
 import { inter } from "@/lib/fonts";
 import { cn } from "@/lib/utils";

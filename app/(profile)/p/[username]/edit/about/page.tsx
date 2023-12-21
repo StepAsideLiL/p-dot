@@ -13,7 +13,7 @@ const AboutEditPage = async ({
 
   return (
     <Main variant={"md"}>
-      <EditAndAddPageTitle>Edit About</EditAndAddPageTitle>
+      <EditAndAddPageTitle>Edit About Me</EditAndAddPageTitle>
 
       <AboutForm username={user!.username} about={user!.profile!.about} />
     </Main>

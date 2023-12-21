@@ -19,7 +19,7 @@ const ProfileTabContent = async ({ username }: { username: string }) => {
     <>
       <ProfileSection>
         <div className="flex items-center justify-between">
-          <ProfileSectionTitle>About</ProfileSectionTitle>
+          <ProfileSectionTitle>About Me</ProfileSectionTitle>
 
           <IsUserSignedIn
             isUserSignedIn={isUserSignedIn}
