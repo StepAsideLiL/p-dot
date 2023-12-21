@@ -45,7 +45,7 @@ const ProfileTabContent = async ({ username }: { username: string }) => {
             isUserSignedIn={isUserSignedIn}
             signin={
               <Button variant={"ghost"} asChild>
-                <Link href={`/p/${user?.username}/edit-profile#skills`}>
+                <Link href={`/p/${user?.username}/edit/skills`}>
                   <Edit />
                 </Link>
               </Button>

@@ -68,3 +68,26 @@ export const updateAbout = async (valuse: AboutForm) => {
   revalidatePath(`/p/${username}`);
   redirect(`/p/${username}`);
 };
+
+export const addSkill = async (username: string, skillId: string) => {
+  try {
+    await prisma.user.update({
+      where: {
+        username: username,
+      },
+      data: {
+        skills: {
+          connect: {
+            id: skillId,
+          },
+        },
+      },
+    });
+  } catch (err) {
+    console.log(err);
+    throw new Error("Failed to update user about.");
+  }
+
+  revalidatePath(`/p/${username}/edit/skills`);
+  // redirect(`/p/${username}`);
+};

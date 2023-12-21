@@ -25,3 +25,19 @@ export type AboutForm = {
   username: string;
   about: string;
 };
+
+export type SkillsForm = {
+  username: string;
+  userSkills: {
+    id: string;
+    title: string;
+    slug: string;
+  }[];
+  availableSkills:
+    | {
+        id: string;
+        title: string;
+        slug: string;
+      }[]
+    | undefined;
+};

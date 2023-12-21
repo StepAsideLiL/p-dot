@@ -67,3 +67,18 @@ export const useSession = async () => {
     throw new Error("Failed to fetch user session.");
   }
 };
+
+export const allSkills = async () => {
+  noStore();
+
+  try {
+    // await new Promise((resolve) => setTimeout(resolve, 3000));
+
+    const skills = await prisma.skill.findMany({});
+
+    return skills;
+  } catch (err) {
+    console.log(err);
+    throw new Error("Failed to fetch skills.");
+  }
+};

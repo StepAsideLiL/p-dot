@@ -1,5 +1,6 @@
 import ProfileForm from "@/components/forms/profile";
-import { EditAndAddPageTitle, Main } from "@/components/web-uis";
+import { Main } from "@/components/uis/main";
+import { EditAndAddPageTitle } from "@/components/web-uis";
 import { singleUser } from "@/lib/data";
 
 const EditProfilePage = async ({
@@ -10,7 +11,7 @@ const EditProfilePage = async ({
   const user = await singleUser(username);
 
   return (
-    <Main className="max-w-5xl mx-auto container space-y-4">
+    <Main variant={"md"}>
       <EditAndAddPageTitle>Edit Your Profile</EditAndAddPageTitle>
 
       <ProfileForm
