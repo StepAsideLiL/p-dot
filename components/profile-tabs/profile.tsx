@@ -74,7 +74,7 @@ const ProfileTabContent = async ({ username }: { username: string }) => {
             isUserSignedIn={isUserSignedIn}
             signin={
               <Button variant={"ghost"} asChild>
-                <Link href={`/p/${user?.username}/edit-profile#education`}>
+                <Link href={`/p/${user?.username}/edit/education`}>
                   <Edit />
                 </Link>
               </Button>
@@ -110,9 +110,7 @@ const ProfileTabContent = async ({ username }: { username: string }) => {
             isUserSignedIn={isUserSignedIn}
             signin={
               <Button variant={"ghost"} asChild>
-                <Link
-                  href={`/p/${user?.username}/edit-profile#courses-and-certificates`}
-                >
+                <Link href={`/p/${user?.username}/edit/courses`}>
                   <Edit />
                 </Link>
               </Button>
