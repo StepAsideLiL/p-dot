@@ -95,7 +95,7 @@ const ProfileTabContent = async ({ username }: { username: string }) => {
                   {list.degree} {list.degree && " in "} {list.fieldOfStudy}
                 </p>
               )}
-              {list.gpa && list.gpa !== 0 && (
+              {list.gpa !== "" && (
                 <p>
                   Grade {list.gpa} {list.maxGpa && " out of "} {list.maxGpa}
                 </p>
