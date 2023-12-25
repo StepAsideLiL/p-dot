@@ -1,7 +1,7 @@
-import CoursesFrom from "@/components/forms/courses";
 import { Main } from "@/components/uis/main";
 import { EditAndAddPageTitle } from "@/components/web-uis";
 import { singleUser } from "@/lib/data";
+import CoursesInfo from "./_parts/courses-info";
 
 const CourseEditPage = async ({
   params: { username },
@@ -17,6 +17,7 @@ const CourseEditPage = async ({
       </EditAndAddPageTitle>
 
       {/* <CoursesFrom username={user!.username} courses={user!.profile!.courses} /> */}
+      <CoursesInfo username={username} />
     </Main>
   );
 };

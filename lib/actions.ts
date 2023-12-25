@@ -1,6 +1,11 @@
 "use server";
 
-import { AboutForm, EducationFormData, ProfileForm } from "@/lib/types";
+import {
+  AboutForm,
+  CourseFormData,
+  EducationFormData,
+  ProfileForm,
+} from "@/lib/types";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import prisma from "@/lib/prismadb";
@@ -163,4 +168,66 @@ export const deleteEducation = async (
   }
 
   revalidatePath(`/p/${username}/edit/education`);
+};
+
+export const addOrUpdateCourse = async (values: CourseFormData) => {
+  const {
+    username,
+    profileId,
+    courseId,
+    institutionName,
+    courseName,
+    startDate,
+    finishDate,
+  } = values;
+
+  try {
+    if (courseId) {
+      await prisma.course.update({
+        where: {
+          id: courseId,
+        },
+        data: {
+          institutionName: institutionName,
+          courseName: courseName,
+          startDate: startDate,
+          finishDate: finishDate,
+        },
+      });
+    } else {
+      await prisma.course.create({
+        data: {
+          institutionName: institutionName,
+          courseName: courseName,
+          startDate: startDate,
+          finishDate: finishDate,
+          profile: {
+            connect: {
+              id: profileId,
+            },
+          },
+        },
+      });
+    }
+  } catch (err) {
+    console.log(err);
+    throw new Error("Failed to update or add user education information.");
+  }
+
+  revalidatePath(`/p/${username}/edit/education`);
+};
+
+export const deleteCourse = async (username: string, courseId: string) => {
+  try {
+    await prisma.course.delete({
+      where: {
+        id: courseId,
+      },
+    });
+  } catch (err) {
+    console.log(err);
+    throw new Error("Failed to delete user course information.");
+  }
+
+  revalidatePath(`/p/${username}/edit/courses`);
 };

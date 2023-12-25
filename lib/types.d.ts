@@ -70,14 +70,12 @@ export type EducationFormData = {
   finishDate?: Date | null;
 };
 
-export type CoursesForm = {
+export type CourseFormData = {
   username: string;
-  courses: {
-    id: string;
-    profileId: string;
-    institutionName: string;
-    courseName: string;
-    startDate: Date;
-    finishDate: Date;
-  }[];
+  profileId: string;
+  courseId?: string;
+  institutionName?: string | null;
+  courseName?: string | null;
+  startDate?: Date | null;
+  finishDate?: Date | null;
 };
