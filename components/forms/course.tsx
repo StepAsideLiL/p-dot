@@ -30,6 +30,7 @@ const formSchema = z.object({
     .string()
     .min(1, { message: "Institution Name cannot be empty" }),
   courseName: z.string().min(1, { message: "Course Name cannot be empty" }),
+  certificateLink: z.string(),
   startDate: z
     .date({
       required_error: "A date of birth is required.",
@@ -48,6 +49,7 @@ const CourseForm = ({
   courseId,
   institutionName,
   courseName,
+  certificateLink,
   startDate,
   finishDate,
 }: CourseFormData) => {
@@ -56,6 +58,7 @@ const CourseForm = ({
     defaultValues: {
       institutionName: institutionName ? institutionName : "",
       courseName: courseName ? courseName : "",
+      certificateLink: certificateLink ? certificateLink : "",
       startDate: startDate ? startDate : undefined,
       finishDate: finishDate ? finishDate : undefined,
     },
@@ -101,6 +104,26 @@ const CourseForm = ({
 
               <FormControl>
                 <Input type="text" placeholder="Awesome Course" {...field} />
+              </FormControl>
+
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={form.control}
+          name="certificateLink"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Certificate Link</FormLabel>
+
+              <FormControl>
+                <Input
+                  type="text"
+                  placeholder="https://certificate.link"
+                  {...field}
+                />
               </FormControl>
 
               <FormMessage />

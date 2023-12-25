@@ -5,6 +5,7 @@ import { Edit } from "lucide-react";
 import CourseDeleteBtn from "./course-del-btn";
 import { isoDateToMonthYear } from "@/lib/utils";
 import CourseForm from "@/components/forms/course";
+import Link from "next/link";
 
 const CoursesInfo = async ({ username }: { username: string }) => {
   const user = await singleUser(username);
@@ -32,6 +33,7 @@ const CoursesInfo = async ({ username }: { username: string }) => {
                       courseId={list.id}
                       institutionName={list.institutionName}
                       courseName={list.courseName}
+                      certificateLink={list.certificateLink}
                       startDate={list.startDate}
                       finishDate={list.finishDate}
                     />
@@ -43,6 +45,11 @@ const CoursesInfo = async ({ username }: { username: string }) => {
               </div>
 
               {list.courseName && <p>{list.courseName}</p>}
+              {list.certificateLink !== "" && (
+                <Link href={list.certificateLink || ""} className="underline">
+                  {list.certificateLink}
+                </Link>
+              )}
               {list.startDate && list.finishDate && (
                 <p>
                   {isoDateToMonthYear(list.startDate.toISOString())} -{" "}

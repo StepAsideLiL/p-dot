@@ -133,6 +133,11 @@ const ProfileTabContent = async ({ username }: { username: string }) => {
             <li key={list.id} className="py-2">
               <h1 className="text-xl">{list.institutionName}</h1>
               {list.courseName && <p>{list.courseName}</p>}
+              {list.certificateLink !== "" && (
+                <Link href={list.certificateLink || ""} className="underline">
+                  {list.certificateLink}
+                </Link>
+              )}
               {list.startDate && list.finishDate && (
                 <p>
                   {isoDateToMonthYear(list.startDate.toISOString())} -{" "}

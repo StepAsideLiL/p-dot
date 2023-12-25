@@ -76,6 +76,7 @@ export type CourseFormData = {
   courseId?: string;
   institutionName?: string | null;
   courseName?: string | null;
+  certificateLink?: string | null;
   startDate?: Date | null;
   finishDate?: Date | null;
 };

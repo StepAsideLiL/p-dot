@@ -16,7 +16,6 @@ const CourseEditPage = async ({
         Add and Edit Your Course and Certificate information
       </EditAndAddPageTitle>
 
-      {/* <CoursesFrom username={user!.username} courses={user!.profile!.courses} /> */}
       <CoursesInfo username={username} />
     </Main>
   );

@@ -82,6 +82,7 @@ model Course {
 
   institutionName String?
   courseName      String?
+  certificateLink String?
   startDate       DateTime?
   finishDate      DateTime?
 }

@@ -177,6 +177,7 @@ export const addOrUpdateCourse = async (values: CourseFormData) => {
     courseId,
     institutionName,
     courseName,
+    certificateLink,
     startDate,
     finishDate,
   } = values;
@@ -190,6 +191,7 @@ export const addOrUpdateCourse = async (values: CourseFormData) => {
         data: {
           institutionName: institutionName,
           courseName: courseName,
+          certificateLink: certificateLink,
           startDate: startDate,
           finishDate: finishDate,
         },
@@ -199,6 +201,7 @@ export const addOrUpdateCourse = async (values: CourseFormData) => {
         data: {
           institutionName: institutionName,
           courseName: courseName,
+          certificateLink: certificateLink,
           startDate: startDate,
           finishDate: finishDate,
           profile: {
