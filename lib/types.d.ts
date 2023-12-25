@@ -42,7 +42,7 @@ export type SkillsForm = {
     | undefined;
 };
 
-export type EducationForm = {
+export type EducationInfo = {
   username: string;
   education: {
     id: string;
@@ -55,6 +55,19 @@ export type EducationForm = {
     startDate: Date;
     finishDate: Date;
   }[];
+};
+
+export type EducationFormData = {
+  username: string;
+  profileId: string;
+  educationId?: string;
+  institutionName?: string | null;
+  degree?: string | null;
+  fieldOfStudy?: string | null;
+  gpa?: number | null;
+  maxGpa?: number | null;
+  startDate?: Date | null;
+  finishDate?: Date | null;
 };
 
 export type CoursesForm = {

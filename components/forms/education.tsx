@@ -1,97 +1,273 @@
 "use client";
 
-import { EducationForm } from "@/lib/types";
-import { isoDateToMonthYear } from "@/lib/utils";
-import { useState } from "react";
-import { useMedia } from "react-use";
+import * as z from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { format } from "date-fns";
+import { Button } from "@/components/ui/button";
 import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
 import {
-  Drawer,
-  DrawerClose,
-  DrawerContent,
-  DrawerDescription,
-  DrawerFooter,
-  DrawerHeader,
-  DrawerTitle,
-  DrawerTrigger,
-} from "@/components/ui/drawer";
-import { Button } from "../ui/button";
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import { Calendar } from "@/components/ui/calendar";
+import { CalendarIcon } from "lucide-react";
+import { cn } from "@/lib/utils";
+import { EducationFormData } from "@/lib/types";
+import { addAndUpdateEducation } from "@/lib/actions";
 
-const EducationForm = ({ username, education }: EducationForm) => {
-  const isDesktop = useMedia("(min-width: 768px)");
-  const [open, setOpen] = useState(false);
+const formSchema = z.object({
+  institutionName: z
+    .string()
+    .min(1, { message: "Institution Name cannot be empty" }),
+  degree: z.string().optional(),
+  fieldOfStudy: z.string().optional(),
+  gpa: z.number().optional(),
+  maxGpa: z.number().optional(),
+  startDate: z
+    .date({
+      required_error: "A date of birth is required.",
+    })
+    .optional(),
+  finishDate: z
+    .date({
+      required_error: "A date of birth is required.",
+    })
+    .optional(),
+});
+
+const EducationForm = ({
+  username,
+  profileId,
+  educationId,
+  institutionName,
+  degree,
+  fieldOfStudy,
+  gpa,
+  maxGpa,
+  startDate,
+  finishDate,
+}: EducationFormData) => {
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      institutionName: institutionName ? institutionName : "",
+      degree: degree ? degree : "",
+      fieldOfStudy: fieldOfStudy ? fieldOfStudy : "",
+      gpa: gpa ? gpa : undefined,
+      maxGpa: maxGpa ? maxGpa : undefined,
+      startDate: startDate ? startDate : undefined,
+      finishDate: finishDate ? finishDate : undefined,
+    },
+  });
+
+  function onSubmit(values: z.infer<typeof formSchema>) {
+    const formData: EducationFormData = {
+      profileId: profileId,
+      username: username,
+      educationId: educationId,
+      ...values,
+    };
+    addAndUpdateEducation(formData);
+  }
 
   return (
-    <section>
-      <ul>
-        {education.map((list) => (
-          <li key={list.id}>
-            <h1 className="text-2xl">{list.institutionName}</h1>
-            <p>
-              {list.degree} in {list.fieldOfStudy}
-            </p>
-            <p>
-              GPA {list.gpa} out of {list.maxGpa}
-            </p>
-            <p>
-              {isoDateToMonthYear(list.startDate.toISOString())} -{" "}
-              {isoDateToMonthYear(list.finishDate.toISOString())}
-            </p>
-          </li>
-        ))}
-      </ul>
+    <Form {...form}>
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+        <FormField
+          control={form.control}
+          name="institutionName"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Institution Name</FormLabel>
 
-      <div>
-        {isDesktop ? (
-          <Dialog open={open} onOpenChange={setOpen}>
-            <DialogTrigger asChild>
-              <Button variant="outline">Edit Profile</Button>
-            </DialogTrigger>
-            <DialogContent className="sm:max-w-[425px]">
-              <DialogHeader>
-                <DialogTitle>Edit profile</DialogTitle>
-                <DialogDescription>
-                  Make changes to your profile here. Click save when
-                  you&rsquo;re done.
-                </DialogDescription>
-              </DialogHeader>
+              <FormControl>
+                <Input type="text" placeholder="XYZ School" {...field} />
+              </FormControl>
 
-              <div>hello</div>
-            </DialogContent>
-          </Dialog>
-        ) : (
-          <Drawer open={open} onOpenChange={setOpen}>
-            <DrawerTrigger asChild>
-              <Button variant="outline">Edit Profile</Button>
-            </DrawerTrigger>
-            <DrawerContent>
-              <DrawerHeader className="text-left">
-                <DrawerTitle>Edit profile</DrawerTitle>
-                <DrawerDescription>
-                  Make changes to your profile here. Click save when
-                  you&rsquo;re done.
-                </DrawerDescription>
-              </DrawerHeader>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
 
-              <div>hello</div>
+        <div className="flex gap-2 w-full">
+          <FormField
+            control={form.control}
+            name="degree"
+            render={({ field }) => (
+              <FormItem className="w-full">
+                <FormLabel>Degree</FormLabel>
 
-              <DrawerFooter className="pt-2">
-                <DrawerClose asChild>
-                  <Button variant="outline">Cancel</Button>
-                </DrawerClose>
-              </DrawerFooter>
-            </DrawerContent>
-          </Drawer>
-        )}
-      </div>
-    </section>
+                <FormControl>
+                  <Input type="text" placeholder="Science" {...field} />
+                </FormControl>
+
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name="fieldOfStudy"
+            render={({ field }) => (
+              <FormItem className="w-full">
+                <FormLabel>Field of Study</FormLabel>
+
+                <FormControl>
+                  <Input
+                    type="text"
+                    placeholder="Computer Science"
+                    {...field}
+                  />
+                </FormControl>
+
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
+
+        <div className="flex gap-2 w-full">
+          <FormField
+            control={form.control}
+            name="gpa"
+            render={({ field }) => (
+              <FormItem className="w-full">
+                <FormLabel>Obtained GPA</FormLabel>
+
+                <FormControl>
+                  <Input type="number" placeholder="3.2" {...field} />
+                </FormControl>
+
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name="maxGpa"
+            render={({ field }) => (
+              <FormItem className="w-full">
+                <FormLabel>Max GPA</FormLabel>
+
+                <FormControl>
+                  <Input type="number" placeholder="4" {...field} />
+                </FormControl>
+
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
+
+        <div className="flex gap-2 w-full">
+          <FormField
+            control={form.control}
+            name="startDate"
+            render={({ field }) => (
+              <FormItem className="flex flex-col w-full">
+                <FormLabel>Starting Date</FormLabel>
+
+                <FormControl>
+                  <Popover>
+                    <PopoverTrigger asChild>
+                      <FormControl>
+                        <Button
+                          variant={"outline"}
+                          className={cn(
+                            "w-full pl-3 text-left font-normal",
+                            !field.value && "text-muted-foreground"
+                          )}
+                        >
+                          {field.value ? (
+                            format(field.value, "PPP")
+                          ) : (
+                            <span>Pick a date</span>
+                          )}
+                          <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                        </Button>
+                      </FormControl>
+                    </PopoverTrigger>
+                    <PopoverContent className="w-auto p-0" align="start">
+                      <Calendar
+                        mode="single"
+                        selected={field.value}
+                        onSelect={field.onChange}
+                        disabled={(date: Date) =>
+                          date > new Date() || date < new Date("1900-01-01")
+                        }
+                        initialFocus
+                      />
+                    </PopoverContent>
+                  </Popover>
+                </FormControl>
+
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name="finishDate"
+            render={({ field }) => (
+              <FormItem className="flex flex-col w-full">
+                <FormLabel>Finishing Date</FormLabel>
+
+                <FormControl>
+                  <Popover>
+                    <PopoverTrigger asChild>
+                      <FormControl>
+                        <Button
+                          variant={"outline"}
+                          className={cn(
+                            "w-full pl-3 text-left font-normal",
+                            !field.value && "text-muted-foreground"
+                          )}
+                        >
+                          {field.value ? (
+                            format(field.value, "PPP")
+                          ) : (
+                            <span>Pick a date</span>
+                          )}
+                          <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                        </Button>
+                      </FormControl>
+                    </PopoverTrigger>
+                    <PopoverContent className="w-auto p-0" align="start">
+                      <Calendar
+                        mode="single"
+                        selected={field.value}
+                        onSelect={field.onChange}
+                        disabled={(date: Date) =>
+                          date > new Date() || date < new Date("1900-01-01")
+                        }
+                        initialFocus
+                      />
+                    </PopoverContent>
+                  </Popover>
+                </FormControl>
+
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
+
+        <Button type="submit">{educationId ? "Update" : "Add"}</Button>
+      </form>
+    </Form>
   );
 };
 

@@ -18,13 +18,13 @@ const ProfileTabContent = async ({ username }: { username: string }) => {
   return (
     <>
       <ProfileSection>
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between border-b">
           <ProfileSectionTitle>About Me</ProfileSectionTitle>
 
           <IsUserSignedIn
             isUserSignedIn={isUserSignedIn}
             signin={
-              <Button variant={"ghost"} asChild>
+              <Button variant={"ghost"} size={"icon"} asChild>
                 <Link href={`/p/${user?.username}/edit/about`}>
                   <Edit />
                 </Link>
@@ -34,17 +34,20 @@ const ProfileTabContent = async ({ username }: { username: string }) => {
           />
         </div>
 
-        <div dangerouslySetInnerHTML={{ __html: user!.profile!.about }} />
+        <div
+          dangerouslySetInnerHTML={{ __html: user!.profile!.about }}
+          className="px-10"
+        />
       </ProfileSection>
 
       <ProfileSection>
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between border-b">
           <ProfileSectionTitle>Skills</ProfileSectionTitle>
 
           <IsUserSignedIn
             isUserSignedIn={isUserSignedIn}
             signin={
-              <Button variant={"ghost"} asChild>
+              <Button variant={"ghost"} size={"icon"} asChild>
                 <Link href={`/p/${user?.username}/edit/skills`}>
                   <Edit />
                 </Link>
@@ -54,7 +57,7 @@ const ProfileTabContent = async ({ username }: { username: string }) => {
           />
         </div>
 
-        <ul className="flex gap-2 flex-wrap">
+        <ul className="flex gap-2 flex-wrap px-10">
           {user?.skills.map((skill) => (
             <li
               key={skill.slug}
@@ -67,13 +70,13 @@ const ProfileTabContent = async ({ username }: { username: string }) => {
       </ProfileSection>
 
       <ProfileSection>
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between border-b">
           <ProfileSectionTitle>Education</ProfileSectionTitle>
 
           <IsUserSignedIn
             isUserSignedIn={isUserSignedIn}
             signin={
-              <Button variant={"ghost"} asChild>
+              <Button variant={"ghost"} size={"icon"} asChild>
                 <Link href={`/p/${user?.username}/edit/education`}>
                   <Edit />
                 </Link>
@@ -83,33 +86,39 @@ const ProfileTabContent = async ({ username }: { username: string }) => {
           />
         </div>
 
-        <ul className="space-y-1">
+        <ul className="space-y-1 divide-y-2 px-10">
           {user?.profile?.education.map((list) => (
-            <li key={list.id}>
+            <li key={list.id} className="py-2">
               <h1 className="text-xl">{list.institutionName}</h1>
-              <p>
-                {list.degree} in {list.fieldOfStudy}
-              </p>
-              <p>
-                Grade {list.gpa} out of {list.maxGpa}
-              </p>
-              <p>
-                {isoDateToMonthYear(list.startDate.toISOString())} -{" "}
-                {isoDateToMonthYear(list.finishDate.toISOString())}
-              </p>
+              {list.degree && (
+                <p>
+                  {list.degree} {list.degree && " in "} {list.fieldOfStudy}
+                </p>
+              )}
+              {list.gpa && list.gpa !== 0 && (
+                <p>
+                  Grade {list.gpa} {list.maxGpa && " out of "} {list.maxGpa}
+                </p>
+              )}
+              {list.startDate && list.finishDate && (
+                <p>
+                  {isoDateToMonthYear(list.startDate.toISOString())} -{" "}
+                  {isoDateToMonthYear(list.finishDate.toISOString())}
+                </p>
+              )}
             </li>
           ))}
         </ul>
       </ProfileSection>
 
       <ProfileSection>
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between border-b">
           <ProfileSectionTitle>Courses and Certificates</ProfileSectionTitle>
 
           <IsUserSignedIn
             isUserSignedIn={isUserSignedIn}
             signin={
-              <Button variant={"ghost"} asChild>
+              <Button variant={"ghost"} size={"icon"} asChild>
                 <Link href={`/p/${user?.username}/edit/courses`}>
                   <Edit />
                 </Link>
@@ -119,15 +128,17 @@ const ProfileTabContent = async ({ username }: { username: string }) => {
           />
         </div>
 
-        <ul className="space-y-1">
+        <ul className="space-y-1 divide-y-2 px-10">
           {user?.profile?.courses.map((list) => (
-            <li key={list.id}>
+            <li key={list.id} className="py-2">
               <h1 className="text-xl">{list.institutionName}</h1>
-              <p>{list.courseName}</p>
-              <p>
-                {isoDateToMonthYear(list.startDate.toISOString())} -{" "}
-                {isoDateToMonthYear(list.finishDate.toISOString())}
-              </p>
+              {list.courseName && <p>{list.courseName}</p>}
+              {list.startDate && list.finishDate && (
+                <p>
+                  {isoDateToMonthYear(list.startDate.toISOString())} -{" "}
+                  {isoDateToMonthYear(list.finishDate.toISOString())}
+                </p>
+              )}
             </li>
           ))}
         </ul>

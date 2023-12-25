@@ -65,13 +65,13 @@ model Education {
   profileId String
   profile   Profile @relation(fields: [profileId], references: [id])
 
-  institutionName String   @default("")
-  degree          String   @default("")
-  fieldOfStudy    String   @default("")
-  gpa             Int      @default(0)
-  maxGpa          Int      @default(0)
-  startDate       DateTime @default(now())
-  finishDate      DateTime @default(now())
+  institutionName String?
+  degree          String?
+  fieldOfStudy    String?
+  gpa             Int?
+  maxGpa          Int?
+  startDate       DateTime?
+  finishDate      DateTime?
 }
 
 model Course {
@@ -80,8 +80,8 @@ model Course {
   profileId String
   profile   Profile @relation(fields: [profileId], references: [id])
 
-  institutionName String   @default("")
-  courseName      String   @default("")
-  startDate       DateTime @default(now())
-  finishDate      DateTime @default(now())
+  institutionName String?
+  courseName      String?
+  startDate       DateTime?
+  finishDate      DateTime?
 }

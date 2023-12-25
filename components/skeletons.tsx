@@ -104,3 +104,7 @@ export const TabsContainerSkeleton = () => {
     </Tabs>
   );
 };
+
+export const EducationInfoSkeleton = () => {
+  return <div>loading...</div>;
+};
