@@ -43,12 +43,12 @@ export async function GET() {
   try {
     const profiles = await prisma.profile.findMany();
     const education = await prisma.education.findMany();
-    const courses = await prisma.course.findMany();
+    // const courses = await prisma.course.findMany();
 
     if (
       profiles.length !== 0 &&
-      education.length === 0 &&
-      courses.length === 0
+      education.length === 0 //&&
+      // courses.length === 0
     ) {
       profiles.map(async (profile) => {
         await prisma.education.create({
@@ -56,8 +56,8 @@ export async function GET() {
             institutionName: getRandomElement(uniInstitutionNames),
             degree: getRandomElement(degrees),
             fieldOfStudy: getRandomElement(fieldsOfStudy),
-            gpa: faker.number.float({ precision: 0.01, max: 4 }),
-            maxGpa: 4,
+            gpa: faker.number.float({ precision: 0.01, max: 4 }).toString(),
+            maxGpa: "4",
             startDate: faker.date.between({
               from: "2015-01-01T00:00:00.000Z",
               to: "2017-01-01T00:00:00.000Z",
@@ -74,25 +74,25 @@ export async function GET() {
           },
         });
 
-        await prisma.course.create({
-          data: {
-            institutionName: getRandomElement(courseInstitutionNames),
-            courseName: getRandomElement(courseTitles),
-            startDate: faker.date.between({
-              from: "2015-01-01T00:00:00.000Z",
-              to: "2017-01-01T00:00:00.000Z",
-            }),
-            finishDate: faker.date.between({
-              from: "2019-01-01T00:00:00.000Z",
-              to: "2023-01-01T00:00:00.000Z",
-            }),
-            profile: {
-              connect: {
-                id: profile.id,
-              },
-            },
-          },
-        });
+        // await prisma.course.create({
+        //   data: {
+        //     institutionName: getRandomElement(courseInstitutionNames),
+        //     courseName: getRandomElement(courseTitles),
+        //     startDate: faker.date.between({
+        //       from: "2015-01-01T00:00:00.000Z",
+        //       to: "2017-01-01T00:00:00.000Z",
+        //     }),
+        //     finishDate: faker.date.between({
+        //       from: "2019-01-01T00:00:00.000Z",
+        //       to: "2023-01-01T00:00:00.000Z",
+        //     }),
+        //     profile: {
+        //       connect: {
+        //         id: profile.id,
+        //       },
+        //     },
+        //   },
+        // });
       });
     } else {
       console.log("Already Modified.");

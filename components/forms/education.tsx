@@ -31,8 +31,8 @@ const formSchema = z.object({
     .min(1, { message: "Institution Name cannot be empty" }),
   degree: z.string().optional(),
   fieldOfStudy: z.string().optional(),
-  gpa: z.number().optional(),
-  maxGpa: z.number().optional(),
+  gpa: z.string().optional(),
+  maxGpa: z.string().optional(),
   startDate: z
     .date({
       required_error: "A date of birth is required.",
@@ -63,8 +63,8 @@ const EducationForm = ({
       institutionName: institutionName ? institutionName : "",
       degree: degree ? degree : "",
       fieldOfStudy: fieldOfStudy ? fieldOfStudy : "",
-      gpa: gpa ? gpa : undefined,
-      maxGpa: maxGpa ? maxGpa : undefined,
+      gpa: gpa ? gpa : "",
+      maxGpa: maxGpa ? maxGpa : "",
       startDate: startDate ? startDate : undefined,
       finishDate: finishDate ? finishDate : undefined,
     },
@@ -146,7 +146,7 @@ const EducationForm = ({
                 <FormLabel>Obtained GPA</FormLabel>
 
                 <FormControl>
-                  <Input type="number" placeholder="3.2" {...field} />
+                  <Input type="text" placeholder="3.2" {...field} />
                 </FormControl>
 
                 <FormMessage />
@@ -162,7 +162,7 @@ const EducationForm = ({
                 <FormLabel>Max GPA</FormLabel>
 
                 <FormControl>
-                  <Input type="number" placeholder="4" {...field} />
+                  <Input type="text" placeholder="4" {...field} />
                 </FormControl>
 
                 <FormMessage />

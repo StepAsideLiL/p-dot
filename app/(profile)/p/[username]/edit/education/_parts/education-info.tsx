@@ -52,7 +52,7 @@ const EducationInfo = async ({ username }: { username: string }) => {
                   {list.fieldOfStudy}
                 </p>
               )}
-              {list.gpa && list.gpa !== 0 && (
+              {list.gpa !== "" && (
                 <p>
                   GPA {list.gpa} {list.maxGpa && " out of "} {list.maxGpa}
                 </p>

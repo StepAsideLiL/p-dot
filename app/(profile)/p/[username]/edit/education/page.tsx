@@ -12,7 +12,7 @@ const EducationEditPage = ({
   return (
     <Main variant={"md"}>
       <EditAndAddPageTitle>
-        Add and Edit Your Education information
+        Add and Update Your Education information
       </EditAndAddPageTitle>
 
       <Suspense fallback={<EducationInfoSkeleton />}>

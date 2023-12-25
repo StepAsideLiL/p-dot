@@ -64,8 +64,8 @@ export type EducationFormData = {
   institutionName?: string | null;
   degree?: string | null;
   fieldOfStudy?: string | null;
-  gpa?: number | null;
-  maxGpa?: number | null;
+  gpa?: string | null;
+  maxGpa?: string | null;
   startDate?: Date | null;
   finishDate?: Date | null;
 };

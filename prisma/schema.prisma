@@ -68,8 +68,8 @@ model Education {
   institutionName String?
   degree          String?
   fieldOfStudy    String?
-  gpa             Int?
-  maxGpa          Int?
+  gpa             String?
+  maxGpa          String?
   startDate       DateTime?
   finishDate      DateTime?
 }
