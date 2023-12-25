@@ -134,7 +134,11 @@ const ProfileTabContent = async ({ username }: { username: string }) => {
               <h1 className="text-xl">{list.institutionName}</h1>
               {list.courseName && <p>{list.courseName}</p>}
               {list.certificateLink !== "" && (
-                <Link href={list.certificateLink || ""} className="underline">
+                <Link
+                  href={list.certificateLink || ""}
+                  className="underline"
+                  target="_blank"
+                >
                   {list.certificateLink}
                 </Link>
               )}

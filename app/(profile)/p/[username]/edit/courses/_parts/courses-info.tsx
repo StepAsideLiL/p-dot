@@ -46,7 +46,11 @@ const CoursesInfo = async ({ username }: { username: string }) => {
 
               {list.courseName && <p>{list.courseName}</p>}
               {list.certificateLink !== "" && (
-                <Link href={list.certificateLink || ""} className="underline">
+                <Link
+                  href={list.certificateLink || ""}
+                  className="underline"
+                  target="_blank"
+                >
                   {list.certificateLink}
                 </Link>
               )}
