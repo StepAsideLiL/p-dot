@@ -42,12 +42,15 @@ model User {
 }
 
 model Profile {
-  id        String      @id @unique @default(uuid())
-  userId    String      @unique
-  user      User        @relation(fields: [userId], references: [id])
-  about     String      @default("")
-  education Education[]
-  courses   Course[]
+  id String @id @unique @default(uuid())
+
+  userId String @unique
+  user   User   @relation(fields: [userId], references: [id])
+
+  about       String       @default("")
+  education   Education[]
+  courses     Course[]
+  experiences Experience[]
 }
 
 model Skill {
@@ -57,6 +60,19 @@ model Skill {
 
   title String
   slug  String @unique
+}
+
+model Experience {
+  id String @id @unique @default(uuid())
+
+  profileId String
+  profile   Profile @relation(fields: [profileId], references: [id])
+
+  companyName String?
+  jobPosition String?
+  description String?
+  startDate   DateTime?
+  finishDate  DateTime?
 }
 
 model Education {

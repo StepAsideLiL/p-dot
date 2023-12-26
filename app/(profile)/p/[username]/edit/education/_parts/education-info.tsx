@@ -4,7 +4,7 @@ import ResponsiveDialogBox from "@/components/uis/responsive-dialog-box";
 import { singleUser } from "@/lib/data";
 import { isoDateToMonthYear } from "@/lib/utils";
 import { Edit } from "lucide-react";
-import DeleteBtn from "./delete-btn";
+import DeleteBtn from "./education-del-btn";
 
 const EducationInfo = async ({ username }: { username: string }) => {
   const user = await singleUser(username);

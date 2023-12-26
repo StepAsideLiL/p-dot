@@ -1,6 +1,9 @@
 -- CreateEnum
 CREATE TYPE "Role" AS ENUM ('ADMIN', 'USER', 'HIRER');
 
+-- CreateEnum
+CREATE TYPE "WorkStatus" AS ENUM ('AVAILABLE', 'BUSY', 'HIRER');
+
 -- CreateTable
 CREATE TABLE "User" (
     "id" STRING NOT NULL,
@@ -9,6 +12,10 @@ CREATE TABLE "User" (
     "password" STRING NOT NULL,
     "name" STRING NOT NULL DEFAULT '',
     "profilePicture" STRING NOT NULL DEFAULT '',
+    "profilePictureId" STRING NOT NULL DEFAULT '',
+    "workStatus" "WorkStatus" NOT NULL DEFAULT 'AVAILABLE',
+    "jobRole" STRING NOT NULL DEFAULT '',
+    "bio" STRING NOT NULL DEFAULT '',
     "role" "Role" NOT NULL DEFAULT 'USER',
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
@@ -20,7 +27,6 @@ CREATE TABLE "User" (
 CREATE TABLE "Profile" (
     "id" STRING NOT NULL,
     "userId" STRING NOT NULL,
-    "bio" STRING NOT NULL DEFAULT '',
     "about" STRING NOT NULL DEFAULT '',
 
     CONSTRAINT "Profile_pkey" PRIMARY KEY ("id")
@@ -36,16 +42,29 @@ CREATE TABLE "Skill" (
 );
 
 -- CreateTable
+CREATE TABLE "Experience" (
+    "id" STRING NOT NULL,
+    "profileId" STRING NOT NULL,
+    "companyName" STRING,
+    "jobPosition" STRING,
+    "description" STRING,
+    "startDate" TIMESTAMP(3),
+    "finishDate" TIMESTAMP(3),
+
+    CONSTRAINT "Experience_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
 CREATE TABLE "Education" (
     "id" STRING NOT NULL,
-    "userId" STRING NOT NULL,
-    "institutionName" STRING NOT NULL DEFAULT '',
-    "degree" STRING NOT NULL DEFAULT '',
-    "fieldOfStudy" STRING NOT NULL DEFAULT '',
-    "gpa" INT4 NOT NULL DEFAULT 0,
-    "maxGpa" INT4 NOT NULL DEFAULT 0,
-    "startDate" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "finishDate" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "profileId" STRING NOT NULL,
+    "institutionName" STRING,
+    "degree" STRING,
+    "fieldOfStudy" STRING,
+    "gpa" STRING,
+    "maxGpa" STRING,
+    "startDate" TIMESTAMP(3),
+    "finishDate" TIMESTAMP(3),
 
     CONSTRAINT "Education_pkey" PRIMARY KEY ("id")
 );
@@ -53,11 +72,12 @@ CREATE TABLE "Education" (
 -- CreateTable
 CREATE TABLE "Course" (
     "id" STRING NOT NULL,
-    "userId" STRING NOT NULL,
-    "institutionName" STRING NOT NULL DEFAULT '',
-    "courseName" STRING NOT NULL DEFAULT '',
-    "startDate" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "finishDate" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "profileId" STRING NOT NULL,
+    "institutionName" STRING,
+    "courseName" STRING,
+    "certificateLink" STRING,
+    "startDate" TIMESTAMP(3),
+    "finishDate" TIMESTAMP(3),
 
     CONSTRAINT "Course_pkey" PRIMARY KEY ("id")
 );
@@ -90,16 +110,13 @@ CREATE UNIQUE INDEX "Skill_id_key" ON "Skill"("id");
 CREATE UNIQUE INDEX "Skill_slug_key" ON "Skill"("slug");
 
 -- CreateIndex
+CREATE UNIQUE INDEX "Experience_id_key" ON "Experience"("id");
+
+-- CreateIndex
 CREATE UNIQUE INDEX "Education_id_key" ON "Education"("id");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "Education_userId_key" ON "Education"("userId");
-
--- CreateIndex
 CREATE UNIQUE INDEX "Course_id_key" ON "Course"("id");
-
--- CreateIndex
-CREATE UNIQUE INDEX "Course_userId_key" ON "Course"("userId");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "_SkillToUser_AB_unique" ON "_SkillToUser"("A", "B");
@@ -111,10 +128,13 @@ CREATE INDEX "_SkillToUser_B_index" ON "_SkillToUser"("B");
 ALTER TABLE "Profile" ADD CONSTRAINT "Profile_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Education" ADD CONSTRAINT "Education_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "Experience" ADD CONSTRAINT "Experience_profileId_fkey" FOREIGN KEY ("profileId") REFERENCES "Profile"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Course" ADD CONSTRAINT "Course_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "Education" ADD CONSTRAINT "Education_profileId_fkey" FOREIGN KEY ("profileId") REFERENCES "Profile"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Course" ADD CONSTRAINT "Course_profileId_fkey" FOREIGN KEY ("profileId") REFERENCES "Profile"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "_SkillToUser" ADD CONSTRAINT "_SkillToUser_A_fkey" FOREIGN KEY ("A") REFERENCES "Skill"("id") ON DELETE CASCADE ON UPDATE CASCADE;

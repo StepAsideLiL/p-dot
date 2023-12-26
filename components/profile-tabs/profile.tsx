@@ -71,6 +71,35 @@ const ProfileTabContent = async ({ username }: { username: string }) => {
 
       <ProfileSection>
         <div className="flex items-center justify-between border-b">
+          <ProfileSectionTitle>Experiences</ProfileSectionTitle>
+
+          <IsUserSignedIn
+            isUserSignedIn={isUserSignedIn}
+            signin={
+              <Button variant={"ghost"} size={"icon"} asChild>
+                <Link href={`/p/${user?.username}/edit/experiences`}>
+                  <Edit />
+                </Link>
+              </Button>
+            }
+            signout={""}
+          />
+        </div>
+
+        <ul className="flex gap-2 flex-wrap px-10">
+          {user?.skills.map((skill) => (
+            <li
+              key={skill.slug}
+              className="text-sm p-2 border border-1 rounded-3xl bg-zinc-200"
+            >
+              {skill.title}
+            </li>
+          ))}
+        </ul>
+      </ProfileSection>
+
+      <ProfileSection>
+        <div className="flex items-center justify-between border-b">
           <ProfileSectionTitle>Education</ProfileSectionTitle>
 
           <IsUserSignedIn
