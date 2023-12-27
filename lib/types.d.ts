@@ -52,8 +52,8 @@ export type EducationInfo = {
     fieldOfStudy: string;
     gpa: number;
     maxGpa: number;
-    startDate: Date;
-    finishDate: Date;
+    startDate: string;
+    finishDate: string;
   }[];
 };
 
@@ -66,8 +66,8 @@ export type EducationFormData = {
   fieldOfStudy?: string | null;
   gpa?: string | null;
   maxGpa?: string | null;
-  startDate?: Date | null;
-  finishDate?: Date | null;
+  startDate?: string | null;
+  finishDate?: string | null;
 };
 
 export type CourseFormData = {
@@ -77,6 +77,6 @@ export type CourseFormData = {
   institutionName?: string | null;
   courseName?: string | null;
   certificateLink?: string | null;
-  startDate?: Date | null;
-  finishDate?: Date | null;
+  startDate?: string | null;
+  finishDate?: string | null;
 };

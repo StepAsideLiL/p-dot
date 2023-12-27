@@ -59,8 +59,8 @@ const CourseForm = ({
       institutionName: institutionName ? institutionName : "",
       courseName: courseName ? courseName : "",
       certificateLink: certificateLink ? certificateLink : "",
-      startDate: startDate ? startDate : undefined,
-      finishDate: finishDate ? finishDate : undefined,
+      startDate: startDate ? new Date(startDate) : undefined,
+      finishDate: finishDate ? new Date(finishDate) : undefined,
     },
   });
 
@@ -70,6 +70,8 @@ const CourseForm = ({
       username: username,
       courseId: courseId,
       ...values,
+      startDate: values.startDate?.toISOString(),
+      finishDate: values.finishDate?.toISOString(),
     };
     console.log(formData);
 

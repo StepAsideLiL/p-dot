@@ -56,8 +56,8 @@ const CoursesInfo = async ({ username }: { username: string }) => {
               )}
               {list.startDate && list.finishDate && (
                 <p>
-                  {isoDateToMonthYear(list.startDate.toISOString())} -{" "}
-                  {isoDateToMonthYear(list.finishDate.toISOString())}
+                  {isoDateToMonthYear(list.startDate)} -{" "}
+                  {isoDateToMonthYear(list.finishDate)}
                 </p>
               )}
             </li>

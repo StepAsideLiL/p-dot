@@ -17,6 +17,7 @@ const ProfileTabContent = async ({ username }: { username: string }) => {
 
   return (
     <>
+      {/* About Me Section */}
       <ProfileSection>
         <div className="flex items-center justify-between border-b">
           <ProfileSectionTitle>About Me</ProfileSectionTitle>
@@ -40,6 +41,7 @@ const ProfileTabContent = async ({ username }: { username: string }) => {
         />
       </ProfileSection>
 
+      {/* Skills Section */}
       <ProfileSection>
         <div className="flex items-center justify-between border-b">
           <ProfileSectionTitle>Skills</ProfileSectionTitle>
@@ -57,18 +59,25 @@ const ProfileTabContent = async ({ username }: { username: string }) => {
           />
         </div>
 
-        <ul className="flex gap-2 flex-wrap px-10">
-          {user?.skills.map((skill) => (
-            <li
-              key={skill.slug}
-              className="text-sm p-2 border border-1 rounded-3xl bg-zinc-200"
-            >
-              {skill.title}
-            </li>
-          ))}
-        </ul>
+        {user?.skillsInfo.length !== 0 ? (
+          <ul className="flex gap-2 flex-wrap px-10">
+            {user?.skillsInfo.map((skill) => (
+              <li
+                key={skill.slug}
+                className="text-sm p-2 border border-1 rounded-3xl bg-zinc-200"
+              >
+                {skill.title}
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <div className="flex p-2 justify-center items-center">
+            <h1 className="text-muted-foreground">So empty</h1>
+          </div>
+        )}
       </ProfileSection>
 
+      {/* Experiences Section */}
       <ProfileSection>
         <div className="flex items-center justify-between border-b">
           <ProfileSectionTitle>Experiences</ProfileSectionTitle>
@@ -86,18 +95,32 @@ const ProfileTabContent = async ({ username }: { username: string }) => {
           />
         </div>
 
-        <ul className="flex gap-2 flex-wrap px-10">
-          {user?.skills.map((skill) => (
-            <li
-              key={skill.slug}
-              className="text-sm p-2 border border-1 rounded-3xl bg-zinc-200"
-            >
-              {skill.title}
-            </li>
-          ))}
-        </ul>
+        {user?.profile?.experiences.length !== 0 ? (
+          <ul className="space-y-1 divide-y-2 px-10">
+            {user?.profile?.experiences.map((list) => (
+              <li key={list.id} className="py-2">
+                <h1 className="text-xl font-medium">{list.companyName}</h1>
+                {list.jobPosition && (
+                  <p className="font-medium">{list.jobPosition}</p>
+                )}
+                {list.description && <p>{list.description}</p>}
+                {list.startDate && list.finishDate && (
+                  <p>
+                    {isoDateToMonthYear(list.startDate)} -{" "}
+                    {isoDateToMonthYear(list.finishDate)}
+                  </p>
+                )}
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <div className="flex p-2 justify-center items-center">
+            <h1 className="text-muted-foreground">So empty</h1>
+          </div>
+        )}
       </ProfileSection>
 
+      {/* Education Section */}
       <ProfileSection>
         <div className="flex items-center justify-between border-b">
           <ProfileSectionTitle>Education</ProfileSectionTitle>
@@ -115,31 +138,38 @@ const ProfileTabContent = async ({ username }: { username: string }) => {
           />
         </div>
 
-        <ul className="space-y-1 divide-y-2 px-10">
-          {user?.profile?.education.map((list) => (
-            <li key={list.id} className="py-2">
-              <h1 className="text-xl">{list.institutionName}</h1>
-              {list.degree && (
-                <p>
-                  {list.degree} {list.degree && " in "} {list.fieldOfStudy}
-                </p>
-              )}
-              {list.gpa !== "" && (
-                <p>
-                  Grade {list.gpa} {list.maxGpa && " out of "} {list.maxGpa}
-                </p>
-              )}
-              {list.startDate && list.finishDate && (
-                <p>
-                  {isoDateToMonthYear(list.startDate.toISOString())} -{" "}
-                  {isoDateToMonthYear(list.finishDate.toISOString())}
-                </p>
-              )}
-            </li>
-          ))}
-        </ul>
+        {user?.profile?.education.length !== 0 ? (
+          <ul className="space-y-1 divide-y-2 px-10">
+            {user?.profile?.education.map((list) => (
+              <li key={list.id} className="py-2">
+                <h1 className="text-xl font-medium">{list.institutionName}</h1>
+                {list.degree && (
+                  <p className="font-medium">
+                    {list.degree} {list.degree && " in "} {list.fieldOfStudy}
+                  </p>
+                )}
+                {list.gpa !== "" && (
+                  <p>
+                    Grade {list.gpa} {list.maxGpa && " out of "} {list.maxGpa}
+                  </p>
+                )}
+                {list.startDate && list.finishDate && (
+                  <p>
+                    {isoDateToMonthYear(list.startDate)} -{" "}
+                    {isoDateToMonthYear(list.finishDate)}
+                  </p>
+                )}
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <div className="flex p-2 justify-center items-center">
+            <h1 className="text-muted-foreground">So empty</h1>
+          </div>
+        )}
       </ProfileSection>
 
+      {/* Courses and Certificates Section */}
       <ProfileSection>
         <div className="flex items-center justify-between border-b">
           <ProfileSectionTitle>Courses and Certificates</ProfileSectionTitle>
@@ -157,29 +187,37 @@ const ProfileTabContent = async ({ username }: { username: string }) => {
           />
         </div>
 
-        <ul className="space-y-1 divide-y-2 px-10">
-          {user?.profile?.courses.map((list) => (
-            <li key={list.id} className="py-2">
-              <h1 className="text-xl">{list.institutionName}</h1>
-              {list.courseName && <p>{list.courseName}</p>}
-              {list.certificateLink !== "" && (
-                <Link
-                  href={list.certificateLink || ""}
-                  className="underline"
-                  target="_blank"
-                >
-                  {list.certificateLink}
-                </Link>
-              )}
-              {list.startDate && list.finishDate && (
-                <p>
-                  {isoDateToMonthYear(list.startDate.toISOString())} -{" "}
-                  {isoDateToMonthYear(list.finishDate.toISOString())}
-                </p>
-              )}
-            </li>
-          ))}
-        </ul>
+        {user?.profile?.courses.length !== 0 ? (
+          <ul className="space-y-1 divide-y-2 px-10">
+            {user?.profile?.courses.map((list) => (
+              <li key={list.id} className="py-2">
+                <h1 className="text-xl font-medium">{list.institutionName}</h1>
+                {list.courseName && (
+                  <p className="font-medium">{list.courseName}</p>
+                )}
+                {list.certificateLink !== "" && (
+                  <Link
+                    href={list.certificateLink || ""}
+                    className="underline"
+                    target="_blank"
+                  >
+                    {list.certificateLink}
+                  </Link>
+                )}
+                {list.startDate && list.finishDate && (
+                  <p>
+                    {isoDateToMonthYear(list.startDate)} -{" "}
+                    {isoDateToMonthYear(list.finishDate)}
+                  </p>
+                )}
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <div className="flex p-2 justify-center items-center">
+            <h1 className="text-muted-foreground">So empty</h1>
+          </div>
+        )}
       </ProfileSection>
     </>
   );

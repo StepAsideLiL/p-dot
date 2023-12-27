@@ -36,7 +36,7 @@ const TalentsGrid = async () => {
             <p className="py-1">{user.jobRole}</p>
 
             <ul className="flex flex-wrap gap-2 justify-center flex-grow items-center">
-              {user.skills.slice(0, 5).map((skill) => (
+              {user.skillsInfo.slice(0, 5).map((skill) => (
                 <li
                   key={skill.slug}
                   className="text-sm p-2 border border-1 rounded-2xl bg-zinc-200"

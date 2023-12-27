@@ -65,8 +65,8 @@ const EducationForm = ({
       fieldOfStudy: fieldOfStudy ? fieldOfStudy : "",
       gpa: gpa ? gpa : "",
       maxGpa: maxGpa ? maxGpa : "",
-      startDate: startDate ? startDate : undefined,
-      finishDate: finishDate ? finishDate : undefined,
+      startDate: startDate ? new Date(startDate) : undefined,
+      finishDate: finishDate ? new Date(finishDate) : undefined,
     },
   });
 
@@ -76,6 +76,8 @@ const EducationForm = ({
       username: username,
       educationId: educationId,
       ...values,
+      startDate: values.startDate?.toISOString(),
+      finishDate: values.finishDate?.toISOString(),
     };
     addAndUpdateEducation(formData);
   }

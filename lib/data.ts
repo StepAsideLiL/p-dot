@@ -11,7 +11,13 @@ export const allUsers = cache(async () => {
     const users = await prisma.user.findMany({
       include: {
         skillsInfo: true,
-        profile: true,
+        profile: {
+          include: {
+            experiences: true,
+            education: true,
+            courses: true,
+          },
+        },
       },
     });
 
@@ -36,6 +42,7 @@ export const singleUser = cache(async (username: string) => {
         skillsInfo: true,
         profile: {
           include: {
+            experiences: true,
             education: true,
             courses: true,
           },
@@ -58,7 +65,7 @@ export const useSession = cache(async () => {
 
     const user = await prisma.user.findUnique({
       where: {
-        username: "Noah.Blanda-Bosco",
+        username: "Zachary24",
         // username: "Noah.Blanda-Boscoacasc",
       },
     });
