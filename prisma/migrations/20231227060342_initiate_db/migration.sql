@@ -42,14 +42,29 @@ CREATE TABLE "Skill" (
 );
 
 -- CreateTable
+CREATE TABLE "UserSkill" (
+    "id" STRING NOT NULL,
+    "userId" STRING NOT NULL,
+    "title" STRING,
+    "slug" STRING,
+    "isTopSkill" BOOL,
+    "isVarified" BOOL,
+    "totalMark" STRING,
+    "lastExamDate" STRING,
+    "examPassedDate" STRING,
+
+    CONSTRAINT "UserSkill_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
 CREATE TABLE "Experience" (
     "id" STRING NOT NULL,
     "profileId" STRING NOT NULL,
     "companyName" STRING,
     "jobPosition" STRING,
     "description" STRING,
-    "startDate" TIMESTAMP(3),
-    "finishDate" TIMESTAMP(3),
+    "startDate" STRING,
+    "finishDate" STRING,
 
     CONSTRAINT "Experience_pkey" PRIMARY KEY ("id")
 );
@@ -63,8 +78,8 @@ CREATE TABLE "Education" (
     "fieldOfStudy" STRING,
     "gpa" STRING,
     "maxGpa" STRING,
-    "startDate" TIMESTAMP(3),
-    "finishDate" TIMESTAMP(3),
+    "startDate" STRING,
+    "finishDate" STRING,
 
     CONSTRAINT "Education_pkey" PRIMARY KEY ("id")
 );
@@ -76,8 +91,8 @@ CREATE TABLE "Course" (
     "institutionName" STRING,
     "courseName" STRING,
     "certificateLink" STRING,
-    "startDate" TIMESTAMP(3),
-    "finishDate" TIMESTAMP(3),
+    "startDate" STRING,
+    "finishDate" STRING,
 
     CONSTRAINT "Course_pkey" PRIMARY KEY ("id")
 );
@@ -110,6 +125,9 @@ CREATE UNIQUE INDEX "Skill_id_key" ON "Skill"("id");
 CREATE UNIQUE INDEX "Skill_slug_key" ON "Skill"("slug");
 
 -- CreateIndex
+CREATE UNIQUE INDEX "UserSkill_id_key" ON "UserSkill"("id");
+
+-- CreateIndex
 CREATE UNIQUE INDEX "Experience_id_key" ON "Experience"("id");
 
 -- CreateIndex
@@ -126,6 +144,9 @@ CREATE INDEX "_SkillToUser_B_index" ON "_SkillToUser"("B");
 
 -- AddForeignKey
 ALTER TABLE "Profile" ADD CONSTRAINT "Profile_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "UserSkill" ADD CONSTRAINT "UserSkill_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Experience" ADD CONSTRAINT "Experience_profileId_fkey" FOREIGN KEY ("profileId") REFERENCES "Profile"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

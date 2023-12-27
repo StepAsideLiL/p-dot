@@ -1,44 +1,6 @@
 import prisma from "@/lib/prismadb";
 import { slugify } from "@/lib/utils";
-
-const skills = [
-  "HTML",
-  "CSS",
-  "JavaScript",
-  "TypeScript",
-  "React",
-  "Tailwind",
-  "Nextjs",
-  "Nodejs",
-  "MongoDB",
-  "Mongoose",
-  "Express",
-  "MySQL",
-  "Firebase Auth",
-  "Vercel",
-  "Netlify",
-  "Zustand",
-  "Redux",
-  "React Query",
-  "Git",
-  "GitHib",
-  "Figma",
-  "Framer Motion",
-  "Java",
-  "Cpp",
-  "C",
-  "Python",
-  "Machine Learning",
-  "Android App Development",
-  "Apple App Development",
-  "GSAP",
-  "Web Development",
-  "SDLC",
-  "Data Structures and Algorithms",
-  "Object Oriented Programming",
-  "UI/UX",
-  "Communication",
-];
+import { skills } from "../_const/constent";
 
 export async function GET() {
   try {
@@ -55,12 +17,14 @@ export async function GET() {
           },
         });
       }
+
+      console.log("Successfully created Skill table.");
     } else {
-      console.log("Already Populated.");
+      console.log("Skill table already populated.");
     }
 
-    const createdSkills = await prisma.skill.findMany();
-    return Response.json(createdSkills);
+    const output = await prisma.skill.findMany();
+    return Response.json(output);
   } catch (err) {
     console.log(err);
     throw new Error("Error occurred.");

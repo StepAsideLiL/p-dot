@@ -23,19 +23,20 @@ enum WorkStatus {
 }
 
 model User {
-  id               String     @id @unique @default(uuid())
-  email            String     @unique
-  username         String     @unique
+  id               String      @id @unique @default(uuid())
+  email            String      @unique
+  username         String      @unique
   password         String
-  name             String     @default("")
-  profilePicture   String     @default("")
-  profilePictureId String     @default("")
-  workStatus       WorkStatus @default(AVAILABLE)
-  jobRole          String     @default("")
-  bio              String     @default("")
-  role             Role       @default(USER)
+  name             String      @default("")
+  profilePicture   String      @default("")
+  profilePictureId String      @default("")
+  workStatus       WorkStatus  @default(AVAILABLE)
+  jobRole          String      @default("")
+  bio              String      @default("")
+  role             Role        @default(USER)
   profile          Profile?
-  skills           Skill[]
+  hasSkills        Skill[]
+  skillsInfo       UserSkill[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -62,6 +63,21 @@ model Skill {
   slug  String @unique
 }
 
+model UserSkill {
+  id String @id @unique @default(uuid())
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id])
+
+  title          String?
+  slug           String?
+  isTopSkill     Boolean?
+  isVarified     Boolean?
+  totalMark      String?
+  lastExamDate   String?
+  examPassedDate String?
+}
+
 model Experience {
   id String @id @unique @default(uuid())
 
@@ -71,8 +87,8 @@ model Experience {
   companyName String?
   jobPosition String?
   description String?
-  startDate   DateTime?
-  finishDate  DateTime?
+  startDate   String?
+  finishDate  String?
 }
 
 model Education {
@@ -86,8 +102,8 @@ model Education {
   fieldOfStudy    String?
   gpa             String?
   maxGpa          String?
-  startDate       DateTime?
-  finishDate      DateTime?
+  startDate       String?
+  finishDate      String?
 }
 
 model Course {
@@ -99,6 +115,6 @@ model Course {
   institutionName String?
   courseName      String?
   certificateLink String?
-  startDate       DateTime?
-  finishDate      DateTime?
+  startDate       String?
+  finishDate      String?
 }

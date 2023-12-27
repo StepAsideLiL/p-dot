@@ -1,9 +1,18 @@
 import prisma from "@/lib/prismadb";
 import { faker } from "@faker-js/faker";
 import bcrypt from "bcrypt";
+import {
+  courseInstitutionNames,
+  courseTitles,
+  degrees,
+  fieldsOfStudy,
+  jobRoles,
+} from "../_const/constent";
+import { getRandomElement, slugify } from "@/lib/utils";
 
 export async function GET() {
   try {
+    // 1. Create 20 dummy users
     const userCount = await prisma.user.count();
 
     if (userCount === 0) {
@@ -23,21 +32,25 @@ export async function GET() {
               firstName: name.firstName,
               lastName: name.lastName,
             }),
-            password: await bcrypt.hash("12345678", 10),
+            password: await bcrypt.hash("123456", 10),
             name: faker.person.fullName({
               firstName: name.firstName,
               lastName: name.lastName,
             }),
+            bio: faker.person.bio(),
+            jobRole: getRandomElement(jobRoles),
             profilePicture: faker.image.avatar(),
           },
         });
       }
+
+      console.log("Successfully created User table.");
     } else {
-      console.log("Already Populated.");
+      console.log("User table already populated.");
     }
 
-    const createdUsers = await prisma.user.findMany();
-    return Response.json(createdUsers);
+    const output = await prisma.user.findMany();
+    return Response.json(output);
   } catch (err) {
     console.log(err);
     throw new Error("Error occurred.");
