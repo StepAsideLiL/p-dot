@@ -10,7 +10,8 @@ export const allUsers = cache(async () => {
 
     const users = await prisma.user.findMany({
       include: {
-        skills: true,
+        skillsInfo: true,
+        profile: true,
       },
     });
 
@@ -32,7 +33,7 @@ export const singleUser = cache(async (username: string) => {
         username: username,
       },
       include: {
-        skills: true,
+        skillsInfo: true,
         profile: {
           include: {
             education: true,
