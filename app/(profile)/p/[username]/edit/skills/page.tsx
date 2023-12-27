@@ -10,11 +10,11 @@ const SkillsEditPage = async ({
 }) => {
   const user = await singleUser(username);
   const skills = await allSkills();
-  const availableSkills = user?.skills
+  const availableSkills = user?.hasSkills
     ?.filter((item1) => !skills.some((item2) => item1.id === item2.id))
     .concat(
       skills.filter(
-        (item2) => !user?.skills?.some((item1) => item2.id === item1.id)
+        (item2) => !user?.hasSkills?.some((item1) => item2.id === item1.id)
       )
     );
 
@@ -24,7 +24,7 @@ const SkillsEditPage = async ({
 
       <SkillsForm
         username={user!.username}
-        userSkills={user!.skills}
+        userSkills={user!.hasSkills}
         availableSkills={availableSkills}
       />
     </Main>

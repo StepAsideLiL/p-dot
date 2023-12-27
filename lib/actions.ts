@@ -76,14 +76,25 @@ export const updateAbout = async (values: AboutForm) => {
 
 export const addSkill = async (username: string, skillId: string) => {
   try {
+    const skill = await prisma.skill.findUnique({
+      where: {
+        id: skillId,
+      },
+    });
     await prisma.user.update({
       where: {
         username: username,
       },
       data: {
-        skills: {
+        hasSkills: {
           connect: {
             id: skillId,
+          },
+        },
+        skillsInfo: {
+          create: {
+            title: skill?.title,
+            slug: skill?.slug,
           },
         },
       },

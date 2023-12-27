@@ -40,6 +40,7 @@ export const singleUser = cache(async (username: string) => {
       },
       include: {
         skillsInfo: true,
+        hasSkills: true,
         profile: {
           include: {
             experiences: true,
