@@ -4,6 +4,7 @@ import {
   AboutForm,
   CourseFormData,
   EducationFormData,
+  ExperienceFormData,
   ProfileForm,
 } from "@/lib/types";
 import { revalidatePath } from "next/cache";
@@ -105,6 +106,56 @@ export const addSkill = async (username: string, skillId: string) => {
   }
 
   revalidatePath(`/p/${username}/edit/skills`);
+};
+
+export const addAndUpdateExperience = async (values: ExperienceFormData) => {
+  const {
+    username,
+    profileId,
+    experienceId,
+    companyName,
+    jobPosition,
+    description,
+    startDate,
+    finishDate,
+  } = values;
+
+  try {
+    if (experienceId) {
+      await prisma.experience.update({
+        where: {
+          id: experienceId,
+        },
+        data: {
+          companyName: companyName,
+          jobPosition: jobPosition,
+          description: description,
+          startDate: startDate,
+          finishDate: finishDate,
+        },
+      });
+    } else {
+      await prisma.experience.create({
+        data: {
+          companyName: companyName,
+          jobPosition: jobPosition,
+          description: description,
+          startDate: startDate,
+          finishDate: finishDate,
+          profile: {
+            connect: {
+              id: profileId,
+            },
+          },
+        },
+      });
+    }
+  } catch (err) {
+    console.log(err);
+    throw new Error("Failed to update or add user experience information.");
+  }
+
+  revalidatePath(`/p/${username}/edit/experiences`);
 };
 
 export const addAndUpdateEducation = async (values: EducationFormData) => {

@@ -57,6 +57,17 @@ export type EducationInfo = {
   }[];
 };
 
+export type ExperienceFormData = {
+  username: string;
+  profileId: string;
+  experienceId?: string;
+  companyName?: string | null;
+  jobPosition?: string | null;
+  description?: string | null;
+  startDate?: string | null;
+  finishDate?: string | null;
+};
+
 export type EducationFormData = {
   username: string;
   profileId: string;

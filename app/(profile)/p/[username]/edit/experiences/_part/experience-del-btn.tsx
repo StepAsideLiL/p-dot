@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { deleteEducation } from "@/lib/actions";
 import { Trash } from "lucide-react";
 
-const EducationDeleteBtn = ({
+const ExperienceDeleteBtn = ({
   username,
   educationId,
 }: {
@@ -22,4 +22,4 @@ const EducationDeleteBtn = ({
   );
 };
 
-export default EducationDeleteBtn;
+export default ExperienceDeleteBtn;

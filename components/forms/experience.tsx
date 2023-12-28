@@ -1,5 +1,6 @@
 "use client";
 
+import { ExperienceFormData } from "@/lib/types";
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -14,6 +15,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
 import {
   Popover,
   PopoverContent,
@@ -22,56 +24,49 @@ import {
 import { Calendar } from "@/components/ui/calendar";
 import { CalendarIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { EducationFormData } from "@/lib/types";
-import { addAndUpdateEducation } from "@/lib/actions";
 
 const formSchema = z.object({
-  institutionName: z
+  companyName: z
     .string()
     .min(1, { message: "Institution Name cannot be empty" }),
-  degree: z.string().optional(),
-  fieldOfStudy: z.string().optional(),
-  gpa: z.string().optional(),
-  maxGpa: z.string().optional(),
+  jobPosition: z.string().optional(),
+  description: z.string().optional(),
   startDate: z.date().optional(),
   finishDate: z.date().optional(),
 });
 
-const EducationForm = ({
+const ExperienceForm = ({
   username,
   profileId,
-  educationId,
-  institutionName,
-  degree,
-  fieldOfStudy,
-  gpa,
-  maxGpa,
+  experienceId,
+  companyName,
+  jobPosition,
+  description,
   startDate,
   finishDate,
-}: EducationFormData) => {
+}: ExperienceFormData) => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      institutionName: institutionName ? institutionName : "",
-      degree: degree ? degree : "",
-      fieldOfStudy: fieldOfStudy ? fieldOfStudy : "",
-      gpa: gpa ? gpa : "",
-      maxGpa: maxGpa ? maxGpa : "",
+      companyName: companyName ? companyName : "",
+      jobPosition: jobPosition ? jobPosition : "",
+      description: description ? description : "",
       startDate: startDate ? new Date(startDate) : undefined,
       finishDate: finishDate ? new Date(finishDate) : undefined,
     },
   });
 
+  // 2. Define a submit handler.
   function onSubmit(values: z.infer<typeof formSchema>) {
-    const formData: EducationFormData = {
-      profileId: profileId,
+    const formData: ExperienceFormData = {
       username: username,
-      educationId: educationId,
+      profileId: profileId,
+      experienceId: experienceId,
       ...values,
       startDate: values.startDate?.toISOString(),
       finishDate: values.finishDate?.toISOString(),
     };
-    addAndUpdateEducation(formData);
+    console.log(formData);
   }
 
   return (
@@ -79,10 +74,10 @@ const EducationForm = ({
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
         <FormField
           control={form.control}
-          name="institutionName"
+          name="companyName"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Institution Name</FormLabel>
+              <FormLabel>Company Name</FormLabel>
 
               <FormControl>
                 <Input type="text" placeholder="XYZ School" {...field} />
@@ -93,77 +88,41 @@ const EducationForm = ({
           )}
         />
 
-        <div className="flex gap-2 w-full">
-          <FormField
-            control={form.control}
-            name="degree"
-            render={({ field }) => (
-              <FormItem className="w-full">
-                <FormLabel>Degree</FormLabel>
+        <FormField
+          control={form.control}
+          name="jobPosition"
+          render={({ field }) => (
+            <FormItem className="w-full">
+              <FormLabel>Job Position</FormLabel>
 
-                <FormControl>
-                  <Input type="text" placeholder="Science" {...field} />
-                </FormControl>
+              <FormControl>
+                <Input type="text" placeholder="Science" {...field} />
+              </FormControl>
 
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+              <FormMessage />
+            </FormItem>
+          )}
+        />
 
-          <FormField
-            control={form.control}
-            name="fieldOfStudy"
-            render={({ field }) => (
-              <FormItem className="w-full">
-                <FormLabel>Field of Study</FormLabel>
+        <FormField
+          control={form.control}
+          name="description"
+          render={({ field }) => (
+            <FormItem className="w-full">
+              <FormLabel>Description</FormLabel>
 
-                <FormControl>
-                  <Input
-                    type="text"
-                    placeholder="Computer Science"
-                    {...field}
-                  />
-                </FormControl>
+              <FormControl>
+                <Textarea
+                  placeholder="Job Description..."
+                  className="resize-none"
+                  {...field}
+                />
+              </FormControl>
 
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-        </div>
-
-        <div className="flex gap-2 w-full">
-          <FormField
-            control={form.control}
-            name="gpa"
-            render={({ field }) => (
-              <FormItem className="w-full">
-                <FormLabel>Obtained GPA</FormLabel>
-
-                <FormControl>
-                  <Input type="text" placeholder="3.2" {...field} />
-                </FormControl>
-
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-
-          <FormField
-            control={form.control}
-            name="maxGpa"
-            render={({ field }) => (
-              <FormItem className="w-full">
-                <FormLabel>Max GPA</FormLabel>
-
-                <FormControl>
-                  <Input type="text" placeholder="4" {...field} />
-                </FormControl>
-
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-        </div>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
 
         <div className="flex gap-2 w-full">
           <FormField
@@ -265,10 +224,10 @@ const EducationForm = ({
           />
         </div>
 
-        <Button type="submit">{educationId ? "Update" : "Add"}</Button>
+        <Button type="submit">{experienceId ? "Update" : "Add"}</Button>
       </form>
     </Form>
   );
 };
 
-export default EducationForm;
+export default ExperienceForm;

@@ -1,22 +1,23 @@
-import EducationForm from "@/components/forms/education";
 import { Button } from "@/components/ui/button";
 import ResponsiveDialogBox from "@/components/uis/responsive-dialog-box";
 import { singleUser } from "@/lib/data";
-import { isoDateToMonthYear } from "@/lib/utils";
 import { Edit } from "lucide-react";
-import EducationDeleteBtn from "./education-del-btn";
+import React from "react";
+import ExperienceDeleteBtn from "./experience-del-btn";
+import { isoDateToMonthYear } from "@/lib/utils";
+import ExperienceForm from "@/components/forms/experience";
 
-const EducationInfo = async ({ username }: { username: string }) => {
+const ExperienceInfo = async ({ username }: { username: string }) => {
   const user = await singleUser(username);
 
   return (
     <section className="space-y-3">
       <section>
         <ul className="space-y-1 divide-y-2 px-10">
-          {user?.profile?.education.map((list) => (
+          {user?.profile?.experiences.map((list) => (
             <li key={list.id} className="py-1">
               <div className="flex gap-2 items-center">
-                <h1 className="text-2xl">{list.institutionName}</h1>
+                <h1 className="text-2xl font-semibold">{list.companyName}</h1>
 
                 <ResponsiveDialogBox
                   triggerBtn={
@@ -26,15 +27,13 @@ const EducationInfo = async ({ username }: { username: string }) => {
                   }
                   dialogTitle="Update New Education Information"
                   dialogContent={
-                    <EducationForm
+                    <ExperienceForm
                       username={username}
                       profileId={user!.profile!.id}
-                      educationId={list.id}
-                      institutionName={list.institutionName}
-                      degree={list.degree}
-                      fieldOfStudy={list.fieldOfStudy}
-                      gpa={list.gpa}
-                      maxGpa={list.maxGpa}
+                      experienceId={list.id}
+                      companyName={list.companyName}
+                      jobPosition={list.jobPosition}
+                      description={list.description}
                       startDate={list.startDate}
                       finishDate={list.finishDate}
                     />
@@ -42,21 +41,16 @@ const EducationInfo = async ({ username }: { username: string }) => {
                   closeBtn={<Button>Close</Button>}
                 />
 
-                <EducationDeleteBtn username={username} educationId={list.id} />
+                <ExperienceDeleteBtn
+                  username={username}
+                  educationId={list.id}
+                />
               </div>
 
-              {(list.degree || list.fieldOfStudy) && (
-                <p>
-                  {list.degree}
-                  {list.degree && " in "}
-                  {list.fieldOfStudy}
-                </p>
+              {list.jobPosition && (
+                <p className="font-semibold">{list.jobPosition}</p>
               )}
-              {list.gpa !== "" && (
-                <p>
-                  GPA {list.gpa} {list.maxGpa && " out of "} {list.maxGpa}
-                </p>
-              )}
+              {list.description && <p>{list.description}</p>}
               {list.startDate && list.finishDate && (
                 <p>
                   {isoDateToMonthYear(list.startDate)} -{" "}
@@ -73,7 +67,7 @@ const EducationInfo = async ({ username }: { username: string }) => {
           triggerBtn={<Button>Add New</Button>}
           dialogTitle="Add New Education Information"
           dialogContent={
-            <EducationForm username={username} profileId={user!.profile!.id} />
+            <ExperienceForm username={username} profileId={user!.profile!.id} />
           }
           closeBtn={<Button>Close</Button>}
         />
@@ -82,4 +76,4 @@ const EducationInfo = async ({ username }: { username: string }) => {
   );
 };
 
-export default EducationInfo;
+export default ExperienceInfo;
